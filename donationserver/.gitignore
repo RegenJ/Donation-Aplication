@@ -1,1 +1,4 @@
 *.xml
+*.idea
+donationserver/app/*.pyc
+donationserver/donationserver/*.pyc
