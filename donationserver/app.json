@@ -1,0 +1,16 @@
+{
+  "name": "Donation Server",
+  "description": "Backend side for donation app.",
+  "image": "heroku/python",
+  "repository": "",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
