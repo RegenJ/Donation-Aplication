@@ -2,10 +2,12 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
+from app.models import MyUser
 
+def main_view(request):
+    return render(request, 'main_view.html')
 
 def _check_if_username_is_free(username):
     """
@@ -14,7 +16,7 @@ def _check_if_username_is_free(username):
     :return: True if exists otherwise False
     """
     try:
-        User.objects.get(username=username)
+        MyUser.objects.get(username=username)
         return True
     except ObjectDoesNotExist:
         return False
@@ -34,7 +36,7 @@ def register_user(request):
         if _check_if_username_is_free(username):
             return HttpResponse('Username is not free. Choose another\n', status=405)
         else:
-            User.objects.create_user(username, email, password)
+            MyUser.objects.create(username=username, password=password, email=email)
             return HttpResponse('Registration successful\n')
     else:
         return HttpResponseBadRequest('POST request expected\n')
