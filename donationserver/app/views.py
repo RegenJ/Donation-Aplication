@@ -6,8 +6,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from app.models import MyUser
 
-def main_view(request):
+def register_view(request):
     return render(request, 'main_view.html')
+
+def login_view(request):
+    return render(request, 'login.html')
 
 def _check_if_username_is_free(username):
     """

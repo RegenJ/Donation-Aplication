@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from app.views import register_user, main_view
+from app import views
+from django.conf.urls.static import static
+from donationserver import settings
 
 urlpatterns = [
-    url(r'^$', main_view, name='main_view'),
+    url(r'^$', views.login_view, name='login'),
     url(r'^admin/', admin.site.urls),
-    url(r'^register/', register_user, name='register'),
+    url(r'^register/', views.register_user, name='register'),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
