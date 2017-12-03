@@ -349,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             try {
                 URL url = new URL  ("https://donationserver.herokuapp.com/register");
 
-                //establish connection with server
+                //establish connection with server df
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
