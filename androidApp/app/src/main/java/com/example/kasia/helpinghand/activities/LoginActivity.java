@@ -1,4 +1,4 @@
-package com.example.kasia.helpinghand;
+package com.example.kasia.helpinghand.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,6 +26,9 @@ import android.widget.TextView;
 import android.support.annotation.NonNull;
 import 	android.support.design.widget.Snackbar;
 
+import com.example.kasia.helpinghand.R;
+import com.example.kasia.helpinghand.helpers.DonationHttpClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,11 +37,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
+
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -62,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,12 +198,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@") && (email.length() < 40);
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return (password.length() > 4) && (password.length() <= 30);
     }
 
@@ -300,93 +304,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         private final String mEmail;
         private final String mPassword;
+        private final String URL = "https://donationserver.herokuapp.com/login";
 
+        private String response;
+        private String request;
 
-        UserLoginTask(String email,   String password) {
+        UserLoginTask(String email,  String password) {
             mEmail = email;
             mPassword = password;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: chceck if connection works, check if server needs JSON or string
 
+            String res = null;
             try {
-                URL url = new URL  ("https://donationserver.herokuapp.com/login"); // OK???
-                String authStr = mEmail + ":" + mPassword;
-
-                //establish connection with server
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setDoOutput(true);
-                connection.setDoInput(true);
-                connection.setRequestProperty("Authorization", "Basic " + authStr);
-                connection.connect();
-
-                // display what returns POST request
-                StringBuilder sb = new StringBuilder();
-                int HttpResult = connection.getResponseCode();
-                if (HttpResult == HttpURLConnection.HTTP_OK) {
-                    BufferedReader br = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(), "utf-8"));
-                    String line = null;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    br.close();
-                    System.out.println("" + sb.toString());
-                } else {
-                    System.out.println(connection.getResponseMessage());
-                }
-
-
-            } catch ( IOException e) {
-                return false;
-            }
-
-
-            try {
-                URL url = new URL  ("https://donationserver.herokuapp.com/register");
-
-                //establish connection with server df
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setDoOutput(true);
-                connection.setDoInput(true);
-                connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                connection.connect();
-
-                //create JSON with new user credentials
-                JSONObject credentials = new JSONObject();
-
-                credentials.put("password", mPassword);
-                credentials.put("email", mEmail);
-
-                //send JSON object as a string
-                OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
-                wr.write(credentials.toString());
-                wr.flush();
-
-                // display what returns POST request
-                StringBuilder sb = new StringBuilder();
-                int HttpResult = connection.getResponseCode();
-                if (HttpResult == HttpURLConnection.HTTP_OK) {
-                    BufferedReader br = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(), "utf-8"));
-                    String line = null;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    br.close();
-                    System.out.println("" + sb.toString());
-                } else {
-                    System.out.println(connection.getResponseMessage());
-                }
-
-
+                request = new JSONObject()
+                        .put("login", mEmail)
+                        .put("password", mPassword).toString();
+                response = DonationHttpClient.doPostRequest(URL, request);
+               // res= res.replaceAll("\\s+","");
             } catch ( IOException | JSONException ex) {
+                //TODO: print error type?
                 return false;
             }
+
 
             return true;
         }
