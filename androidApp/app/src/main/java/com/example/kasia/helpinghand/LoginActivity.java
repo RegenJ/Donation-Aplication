@@ -1,4 +1,4 @@
-package com.example.kuba.donation_application;
+package com.example.kasia.helpinghand;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -297,13 +297,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mUsername;
+
         private final String mEmail;
         private final String mPassword;
 
 
-        UserLoginTask(String email, String username,  String password) {
-            mUsername = username;
+        UserLoginTask(String email,   String password) {
             mEmail = email;
             mPassword = password;
         }
@@ -359,7 +358,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
                 //create JSON with new user credentials
                 JSONObject credentials = new JSONObject();
-                credentials.put("username", mUsername);
+
                 credentials.put("password", mPassword);
                 credentials.put("email", mEmail);
 
