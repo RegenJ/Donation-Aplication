@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
 import 	android.support.design.widget.Snackbar;
+import android.widget.Toast;
 
 import com.example.kasia.helpinghand.R;
 import com.example.kasia.helpinghand.helpers.DonationHttpClient;
@@ -304,7 +306,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         private final String mEmail;
         private final String mPassword;
-        private final String URL = "https://donationserver.herokuapp.com/login";
+        private final String URL = "https://donationserver.herokuapp.com/login/";
+
+        private String errorMsg;
 
         private String response;
         private String request;
@@ -316,16 +320,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
-            String res = null;
             try {
-                request = new JSONObject()
-                        .put("login", mEmail)
+                //OkHttpClient client = DonationHttpClient.getInstance();
+                String request = new JSONObject()
+                        .put("username", mEmail)
                         .put("password", mPassword).toString();
+                //request = "{'username':'kuba', 'password':'asfas'}";
+                Log.d("REQUEST doInBack", request.toString());
                 response = DonationHttpClient.doPostRequest(URL, request);
+
+                Log.d("POST RESPONSE", response);
                // res= res.replaceAll("\\s+","");
-            } catch ( IOException | JSONException ex) {
-                //TODO: print error type?
+            } catch ( IOException | JSONException | NullPointerException ex) {
+                //TODO: change print message
+                Log.d("EXCEPTION", ex.getMessage());
+                errorMsg = "connection error";
+               // CharSequence msg = ex.getMessage();
+                //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                 return false;
             }
 
@@ -337,11 +348,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
+            Log.d("ONPOSTEXEC", "is being executed");
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(errorMsg);
                 mPasswordView.requestFocus();
             }
         }
