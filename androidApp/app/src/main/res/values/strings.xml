@@ -5,9 +5,11 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_repeat_password">Repeat Password</string>
     <string name="prompt_login">Login</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="action_register_short">Register</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -16,6 +18,14 @@
         completions."
     </string>
     <string name="title_activity_menu">MenuActivity</string>
+
+    <!-- Strings related to creating donation form -->
+    <string name="title_activity_create_donation">Create Your Own Donation</string>
+    <string name="add_donation_name">Enter the collection name</string>
+    <string name="add_donation_bank_account">Enter the bank account</string>
+    <string name="add_donation_end">Choose a collection end date</string>
+    <string name="add_donation_description">Describe the purpose of your donation</string>
+    <string name="create_donation">Create donation</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -26,4 +36,5 @@
     <string name="userLogin">Login</string>
     <string name="userMail">userMail@poczta.com</string>
     <string name="your_image">Your Image</string>
+    <string name="add_donation_amount">Set the amount of your collection</string>
 </resources>

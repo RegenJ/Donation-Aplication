@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kasia.helpinghand.CreateDonationActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_vertical_margin"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/createDonationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:text="@string/title_activity_create_donation"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/big_title" />
+
+            <TextView
+                android:id="@+id/donationNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_donation_name" />
+
+            <EditText
+                android:id="@+id/donationNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="40"
+                android:hint="Name"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/donationAccountTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_donation_bank_account" />
+
+            <EditText
+                android:id="@+id/donationAccountEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="01234 56789"
+                android:hint="Account Number"
+                android:inputType="number"
+                android:maxLength="26" />
+
+            <TextView
+                android:id="@+id/donationAmountTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_donation_amount" />
+
+            <EditText
+                android:id="@+id/amountDonationEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Amount"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/finishDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_donation_end" />
+
+            <EditText
+                android:id="@+id/endDonationEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Date"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/donationDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_donation_description" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Description"
+                android:inputType="textMultiLine|textImeMultiLine" />
+
+            <Button
+                android:id="@+id/createDonationButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorWhite"
+                android:text="@string/create_donation" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
