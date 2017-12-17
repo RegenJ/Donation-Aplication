@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^home/', views.home_view, name='home'),
     url(r'^gathering/', views.gathering, name='gathering'),
     url(r'^login/', views.login_user, name='login'),
+    url(r'^pass/', views.change_pass, name='pass'),
     url(r'^creategathering/', views.create_gathering, name='creategathering'),
     url(r'^register/', views.register_user, name='register'),
 ]
