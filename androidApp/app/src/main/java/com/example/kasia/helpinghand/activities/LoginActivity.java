@@ -13,6 +13,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,9 +26,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.support.annotation.NonNull;
-import 	android.support.design.widget.Snackbar;
-import android.widget.Toast;
 
 import com.example.kasia.helpinghand.R;
 import com.example.kasia.helpinghand.helpers.DonationHttpClient;
@@ -34,21 +33,11 @@ import com.example.kasia.helpinghand.helpers.DonationHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-
 import static android.Manifest.permission.READ_CONTACTS;
-
 
 
 public class LoginActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -67,6 +56,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private AutoCompleteTextView mLoginView;
+
     private View mProgressView;
     private View mLoginFormView;
 
@@ -76,10 +67,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
+        populateAutoComplete();
+        mLoginView = findViewById(R.id.login);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -91,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,9 +153,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
+        mLoginView.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
+        String login = mLoginView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -186,6 +181,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             cancel = true;
         }
 
+        //Check for valid login
+        if (TextUtils.isEmpty(login)) {
+            mLoginView.setError(getString(R.string.error_field_required));
+            focusView = mLoginView;
+            cancel = true;
+        }
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -194,7 +196,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(email, login, password);
             mAuthTask.execute((Void) null);
         }
     }
@@ -306,41 +308,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         private final String mEmail;
         private final String mPassword;
+        private final String mLogin;
         private final String URL = "https://donationserver.herokuapp.com/login/";
 
-        private String errorMsg;
+        private String errorMsg = "err";
 
         private String response;
         private String request;
 
-        UserLoginTask(String email,  String password) {
+        UserLoginTask(String email, String login, String password) {
             mEmail = email;
             mPassword = password;
+            mLogin = login;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                //OkHttpClient client = DonationHttpClient.getInstance();
-                String request = new JSONObject()
-                        .put("username", mEmail)
-                        .put("password", mPassword).toString();
-                //request = "{'username':'kuba', 'password':'asfas'}";
+                JSONObject request = new JSONObject()
+                        .put("username", mLogin)
+                        .put("password", mPassword);
                 Log.d("REQUEST doInBack", request.toString());
-                response = DonationHttpClient.doPostRequest(URL, request);
+                response = DonationHttpClient.loginRequest(URL, request);
 
+                //TODO obsługa responsa o zalogowaniu (jako Exception w doPost ?
+//                if (response != "402") {
+//                    return false;
+//                }
+//                else if (respone == "Bad credentials") ...
                 Log.d("POST RESPONSE", response);
-               // res= res.replaceAll("\\s+","");
-            } catch ( IOException | JSONException | NullPointerException ex) {
+                // res= res.replaceAll("\\s+","");
+            } catch (IOException | JSONException ex) {
                 //TODO: change print message
                 Log.d("EXCEPTION", ex.getMessage());
                 errorMsg = "connection error";
-               // CharSequence msg = ex.getMessage();
                 //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                 return false;
             }
-
-
             return true;
         }
 
@@ -349,6 +353,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             mAuthTask = null;
             showProgress(false);
             Log.d("ONPOSTEXEC", "is being executed");
+            Log.d(" ARG", " " + success);
             if (success) {
                 finish();
             } else {

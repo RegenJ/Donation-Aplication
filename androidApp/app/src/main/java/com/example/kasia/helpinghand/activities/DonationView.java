@@ -1,7 +1,9 @@
-package com.example.kasia.helpinghand;
+package com.example.kasia.helpinghand.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.example.kasia.helpinghand.R;
 
 public class DonationView extends AppCompatActivity {
 
