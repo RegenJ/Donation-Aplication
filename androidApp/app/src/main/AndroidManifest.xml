@@ -22,14 +22,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".activities.MenuActivity"
+            android:name="activities.MenuActivity"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DonationView" />
-        <activity android:name=".CreateDonationActivity"></activity>
+        <activity android:name=".activities.DonationView" />
+        <activity android:name=".activities.CreateDonationActivity" />
+        <activity android:name=".activities.Main2Activity"></activity>
     </application>
 
 </manifest>

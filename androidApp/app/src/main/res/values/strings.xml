@@ -37,4 +37,10 @@
     <string name="userMail">userMail@poczta.com</string>
     <string name="your_image">Your Image</string>
     <string name="add_donation_amount">Set the amount of your collection</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="nav">main1</string>
+    <string name="nav_main2">main2</string>
+
+
 </resources>

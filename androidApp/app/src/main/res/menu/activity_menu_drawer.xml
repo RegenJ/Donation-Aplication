@@ -20,6 +20,23 @@
             android:id="@+id/nav_subscription"
             android:icon="@drawable/ic_star_border_black_24dp"
             android:title="Subscription" />
+        <item
+            android:id="@+id/nav_create_donation"
+            android:icon="@drawable/ic_star_border_black_24dp"
+            android:title="CreateDonation" />
+
+        <item
+            android:id="@+id/nav_Donation"
+            android:icon="@drawable/ic_star_border_black_24dp"
+            android:title="Donation" />
+        <item
+            android:id="@+id/nav_Login"
+            android:icon="@drawable/ic_star_border_black_24dp"
+            android:title="Login" />
+        <item
+            android:id="@+id/nav_main2"
+            android:icon="@drawable/ic_star_border_black_24dp"
+            android:title="Main2" />
     </group>
 
 </menu>
