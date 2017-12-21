@@ -26,6 +26,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kasia.helpinghand.R;
 import com.example.kasia.helpinghand.helpers.DonationHttpClient;
@@ -36,6 +37,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -303,7 +306,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
 
 
         private final String mEmail;
@@ -311,10 +314,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         private final String mLogin;
         private final String URL = "https://donationserver.herokuapp.com/login/";
 
-        private String errorMsg = "err";
+        private String errorMsg = " trololo";
 
-        private String response;
-        private String request;
+        private Response response;
+        //private String request;
 
         UserLoginTask(String email, String login, String password) {
             mEmail = email;
@@ -323,7 +326,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected Integer doInBackground(Void... params) {
             try {
                 JSONObject request = new JSONObject()
                         .put("username", mLogin)
@@ -331,34 +334,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 Log.d("REQUEST doInBack", request.toString());
                 response = DonationHttpClient.loginRequest(URL, request);
 
-                //TODO obsługa responsa o zalogowaniu (jako Exception w doPost ?
-//                if (response != "402") {
-//                    return false;
-//                }
-//                else if (respone == "Bad credentials") ...
-                Log.d("POST RESPONSE", response);
+                //TODO change response codes
+                Log.d("POST RESPONSE", response.body().string());
                 // res= res.replaceAll("\\s+","");
             } catch (IOException | JSONException ex) {
                 //TODO: change print message
                 Log.d("EXCEPTION", ex.getMessage());
                 errorMsg = "connection error";
-                //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                return false;
+
+                return 0;
             }
-            return true;
+            return response.code();
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final Integer serverResponse) {
             mAuthTask = null;
             showProgress(false);
             Log.d("ONPOSTEXEC", "is being executed");
-            Log.d(" ARG", " " + success);
-            if (success) {
+
+            if (serverResponse == 200) {
                 finish();
-            } else {
-                mPasswordView.setError(errorMsg);
+            } else if (serverResponse == 501) {
+                mLoginView.setError("Nickname in use");
+                mLoginView.requestFocus();
+            } else if (serverResponse == 505) {
+                mPasswordView.setError("Wrong password");
                 mPasswordView.requestFocus();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error: " + errorMsg, Toast.LENGTH_LONG).show();
             }
         }
 
