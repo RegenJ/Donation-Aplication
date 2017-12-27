@@ -1,10 +1,15 @@
 package com.example.kasia.helpinghand.helpers;
 
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -35,15 +40,41 @@ public class DonationHttpClient extends OkHttpClient{
         return clientInstance;
     }
 
-    //send post request do server
-    public static String doPostRequest(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
+    public static int loginRequest(String url, JSONObject request) throws JSONException, IOException {
+        Log.d("LOGINREQ reqtoSend", request.getString("username"));
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("username", request.getString("username"))
+                .addFormDataPart("password", request.getString("password"))
                 .build();
-        Response response = clientInstance.newCall(request).execute();
-        return response.body().string();
+
+        Request requestToSend = new Request.Builder()
+                .url(url)
+                .method("POST", RequestBody.create(null, new byte[0]))
+                .post(requestBody)
+                .build();
+
+        Response response = getInstance().newCall(requestToSend).execute();
+        Log.d("LOGINREQ responose", "" + response.code());
+        return response.code();
+
+    }
+    //send post request do server
+    public static int doPostRequest(String url, JSONObject request) throws JSONException, IOException {
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("username", request.getString("username"))
+                .addFormDataPart("password", request.getString("password"))
+                .build();
+
+        Request requestToSend = new Request.Builder()
+                .url(url)
+                .method("POST", RequestBody.create(null, new byte[0]))
+                .post(requestBody)
+                .build();
+
+        Response response = getInstance().newCall(requestToSend).execute();
+        return response.code();
     }
 
     //send get request do server
@@ -52,11 +83,9 @@ public class DonationHttpClient extends OkHttpClient{
                 .url(url)
                 .build();
 
-        Response response = clientInstance.newCall(request).execute();
+        Response response = getInstance().newCall(request).execute();
         return response.body().string();
     }
-
-
 
 
 }
