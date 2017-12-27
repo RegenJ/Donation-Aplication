@@ -38,8 +38,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Response;
-
 import static android.Manifest.permission.READ_CONTACTS;
 
 
@@ -316,7 +314,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         private String errorMsg = " trololo";
 
-        private Response response;
+        private int responseCode;
         //private String request;
 
         UserLoginTask(String email, String login, String password) {
@@ -332,10 +330,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                         .put("username", mLogin)
                         .put("password", mPassword);
                 Log.d("REQUEST doInBack", request.toString());
-                response = DonationHttpClient.loginRequest(URL, request);
+                responseCode = DonationHttpClient.loginRequest(URL, request);
 
                 //TODO change response codes
-                Log.d("POST RESPONSE", response.body().string());
+                Log.d("POST RESPONSE", "responseCode: " + responseCode);
                 // res= res.replaceAll("\\s+","");
             } catch (IOException | JSONException ex) {
                 //TODO: change print message
@@ -344,7 +342,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
                 return 0;
             }
-            return response.code();
+            return responseCode;
         }
 
         @Override
@@ -362,7 +360,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 mPasswordView.setError("Wrong password");
                 mPasswordView.requestFocus();
             } else {
-                Toast.makeText(getApplicationContext(), "Error: " + errorMsg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error: " + serverResponse, Toast.LENGTH_LONG).show();
             }
         }
 

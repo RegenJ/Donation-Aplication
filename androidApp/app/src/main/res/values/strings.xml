@@ -26,6 +26,11 @@
     <string name="add_donation_end">Choose a collection end date</string>
     <string name="add_donation_description">Describe the purpose of your donation</string>
     <string name="create_donation">Create donation</string>
+    <string name="error_invalid_account">This account number is invalid</string>
+    <string name="error_invalid_amount">Amount must be nonempty and numeric</string>
+    <string name="error_invalid_date">This date is invalid</string>
+    <string name="error_invalid_desc">This description</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
