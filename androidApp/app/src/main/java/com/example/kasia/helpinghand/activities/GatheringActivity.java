@@ -21,9 +21,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class CreateDonationActivity extends AppCompatActivity {
+public class GatheringActivity extends AppCompatActivity {
 
-    private DonateTask mDonateTask = null;
+    private GatheringTask mGatheringTask = null;
 
 
     private EditText mDonationName;
@@ -46,7 +46,7 @@ public class CreateDonationActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptDonate();
+                    attemptGathering();
                     return true;
                 }
                 return false;
@@ -59,7 +59,7 @@ public class CreateDonationActivity extends AppCompatActivity {
         mCreateDonationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptDonate();
+                attemptGathering();
             }
         });
 
@@ -69,12 +69,12 @@ public class CreateDonationActivity extends AppCompatActivity {
      * Attempts to donate the foundation specified in form
      * If there are form errors, they are presented and no actual donation attempt is made.
      */
-    private void attemptDonate() {
-        if (mDonateTask != null) {
+    private void attemptGathering() {
+        if (mGatheringTask != null) {
             return;
         }
 
-        // Store values at the time of the login attempt.
+        // Store values at the time of the gathering attempt.
         String name = mDonationName.getText().toString();
         String account = mDonationAccount.getText().toString();
         Integer amount = Integer.parseInt(mDonationAmount.getText().toString());
@@ -138,10 +138,9 @@ public class CreateDonationActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-
             //showProgress(true);
-            mDonateTask = new DonateTask(name, account, amount, date, desc);
-            mDonateTask.execute((Void) null);
+            mGatheringTask = new GatheringTask(name, account, amount, date, desc);
+            mGatheringTask.execute((Void) null);
         }
     }
 
@@ -161,7 +160,7 @@ public class CreateDonationActivity extends AppCompatActivity {
     /**
      * Represents an asynchronous donation task
      */
-    public class DonateTask extends AsyncTask<Void, Void, Integer> {
+    public class GatheringTask extends AsyncTask<Void, Void, Integer> {
 
         //TODO Finish donation task
         private final String mName;
@@ -169,14 +168,14 @@ public class CreateDonationActivity extends AppCompatActivity {
         private final Integer mAmount;
         private final String mDate;
         private final String mDescription;
-        private final String URL = "https://donationserver.herokuapp.com/donate/";
+        private final String URL = "https://donationserver.herokuapp.com/gathering/";
 
         private String errorMsg = " trololo";
 
         private int responseCode;
         //private String request;
 
-        DonateTask(String name, String account, Integer amount, String date, String description) {
+        GatheringTask(String name, String account, Integer amount, String date, String description) {
             mName = name;
             mAccount = account;
             mAmount = amount;
@@ -198,11 +197,9 @@ public class CreateDonationActivity extends AppCompatActivity {
 
                 //TODO change response codes
                 Log.d("POST RESPONSE", "responseCode: " + responseCode);
-                // res= res.replaceAll("\\s+","");
             } catch (IOException | JSONException ex) {
-                //TODO: change print message
                 Log.d("EXCEPTION", ex.getMessage());
-                errorMsg = "connection error";
+                Toast.makeText(getApplicationContext(), "Exception occured", Toast.LENGTH_LONG).show();
                 return 0;
             }
             return responseCode;
@@ -210,10 +207,8 @@ public class CreateDonationActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Integer serverResponse) {
-            mDonateTask = null;
+            mGatheringTask = null;
             // showProgress(false);
-            Log.d("ONPOSTEXEC", "is being executed");
-
 
             //TODO finish managment
             if (serverResponse == 200) {
@@ -228,7 +223,7 @@ public class CreateDonationActivity extends AppCompatActivity {
 
         @Override
         protected void onCancelled() {
-            mDonateTask = null;
+            mGatheringTask = null;
             // showProgress(false);
         }
     }

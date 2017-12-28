@@ -6,15 +6,12 @@ import android.annotation.TargetApi;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,8 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.Manifest.permission.READ_CONTACTS;
-
 
 public class LoginActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -52,12 +47,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private UserLoginTask mLogTask = null;
+    private UserRegisterTask mRegisterTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
+
     private EditText mPasswordView;
     private AutoCompleteTextView mLoginView;
+
 
     private View mProgressView;
     private View mLoginFormView;
@@ -93,51 +91,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         });
 
+        Button mRegisterButton = findViewById(R.id.register_button);
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegister();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
 
     private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-
         getLoaderManager().initLoader(0, null, this);
-    }
-
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
-        return false;
-    }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
     }
 
 
@@ -147,7 +114,50 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
+        if (mLogTask != null) {
+            return;
+        }
+
+        // Reset errors.
+        mPasswordView.setError(null);
+        mLoginView.setError(null);
+
+        // Store values at the time of the login attempt.
+
+        String login = mLoginView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        //Check for valid login
+        if (TextUtils.isEmpty(login)) {
+            mLoginView.setError(getString(R.string.error_field_required));
+            focusView = mLoginView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first form
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner
+            showProgress(true);
+            mLogTask = new UserLoginTask(login, password);
+            mLogTask.execute((Void) null);
+        }
+    }
+
+
+    private void attemptRegister() {
+        if (mLogTask != null) {
             return;
         }
 
@@ -190,15 +200,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            // There was an error; don't attempt register and focus the first form field
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+            // Show a progress spinner
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, login, password);
-            mAuthTask.execute((Void) null);
+            mRegisterTask = new UserRegisterTask(email, login, password);
+            mRegisterTask.execute((Void) null);
         }
     }
 
@@ -301,24 +309,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
+     * Represents an asynchronous login task used to authenticate user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
 
-
-        private final String mEmail;
         private final String mPassword;
         private final String mLogin;
         private final String URL = "https://donationserver.herokuapp.com/login/";
 
         private String errorMsg = " trololo";
 
-        private int responseCode;
-        //private String request;
+        private int responseCode = 0;
 
-        UserLoginTask(String email, String login, String password) {
-            mEmail = email;
+
+        UserLoginTask(String login, String password) {
             mPassword = password;
             mLogin = login;
         }
@@ -334,12 +338,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
                 //TODO change response codes
                 Log.d("POST RESPONSE", "responseCode: " + responseCode);
-                // res= res.replaceAll("\\s+","");
             } catch (IOException | JSONException ex) {
-                //TODO: change print message
                 Log.d("EXCEPTION", ex.getMessage());
-                errorMsg = "connection error";
-
+                Toast.makeText(getApplicationContext(), "Exception occured", Toast.LENGTH_LONG).show();
                 return 0;
             }
             return responseCode;
@@ -347,13 +348,78 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         protected void onPostExecute(final Integer serverResponse) {
-            mAuthTask = null;
+            mLogTask = null;
             showProgress(false);
             Log.d("ONPOSTEXEC", "is being executed");
 
             if (serverResponse == 200) {
                 finish();
-            } else if (serverResponse == 501) {
+            } else if (serverResponse == 405) {
+                mLoginView.setError("Specify username");
+                mLoginView.requestFocus();
+            } else if (serverResponse == 505) {
+                mPasswordView.setError("Wrong password");
+                mPasswordView.requestFocus();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error: " + serverResponse, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mLogTask = null;
+            showProgress(false);
+        }
+    }
+
+    /**
+     * Represents an asynchronous registration task used to register user.
+     */
+    public class UserRegisterTask extends AsyncTask<Void, Void, Integer> {
+
+
+        private final String mEmail;
+        private final String mPassword;
+        private final String mLogin;
+        private final String URL = "https://donationserver.herokuapp.com/register/";
+
+        private String errorMsg = " trololo";
+
+        private int responseCode;
+        //private String request;
+
+        UserRegisterTask(String email, String login, String password) {
+            mEmail = email;
+            mPassword = password;
+            mLogin = login;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            try {
+                JSONObject request = new JSONObject()
+                        .put("username", mLogin)
+                        .put("password", mPassword)
+                        .put("email", mEmail);
+                responseCode = DonationHttpClient.registerRequest(URL, request);
+
+                //TODO change response codes
+                Log.d("POST RESPONSE", "responseCode: " + responseCode);
+            } catch (IOException | JSONException ex) {
+                Toast.makeText(getApplicationContext(), "Exception occured", Toast.LENGTH_LONG).show();
+                return 0;
+            }
+            return responseCode;
+        }
+
+        @Override
+        protected void onPostExecute(final Integer serverResponse) {
+            mLogTask = null;
+            showProgress(false);
+
+            if (serverResponse == 200) {
+                finish();
+            } else if (serverResponse == 405) {
                 mLoginView.setError("Nickname in use");
                 mLoginView.requestFocus();
             } else if (serverResponse == 505) {
@@ -366,7 +432,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            mLogTask = null;
             showProgress(false);
         }
     }
