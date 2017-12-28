@@ -41,7 +41,8 @@ public class DonationHttpClient extends OkHttpClient{
     }
 
     public static int loginRequest(String url, JSONObject request) throws JSONException, IOException {
-        Log.d("LOGINREQ reqtoSend", request.getString("username"));
+        Log.d("LOGINREQ reqLogin", request.getString("username"));
+        Log.d("LOGINREQ reqPass", request.getString("password"));
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("username", request.getString("username"))
@@ -56,6 +57,29 @@ public class DonationHttpClient extends OkHttpClient{
 
         Response response = getInstance().newCall(requestToSend).execute();
         Log.d("LOGINREQ responose", "" + response.code());
+        return response.code();
+
+    }
+
+    public static int registerRequest(String url, JSONObject request) throws JSONException, IOException {
+        Log.d("REGREQ reqLogin", request.getString("username"));
+        Log.d("REGINREQ reqEmail", request.getString("email"));
+        Log.d("REGINREQ reqPass", request.getString("password"));
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("username", request.getString("username"))
+                .addFormDataPart("password", request.getString("password"))
+                .addFormDataPart("email", request.getString("email"))
+                .build();
+
+        Request requestToSend = new Request.Builder()
+                .url(url)
+                .method("POST", RequestBody.create(null, new byte[0]))
+                .post(requestBody)
+                .build();
+
+        Response response = getInstance().newCall(requestToSend).execute();
+        Log.d("REGREQ response", "" + response.code());
         return response.code();
 
     }
