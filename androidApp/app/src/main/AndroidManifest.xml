@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".activities.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +32,9 @@
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.DonationView" />
-        <activity android:name=".activities.CreateDonationActivity"></activity>
+
+        <activity android:name=".activities.GatheringActivity"></activity>
+
     </application>
 
 </manifest>
