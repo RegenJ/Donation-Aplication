@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Response;
+
 
 public class LoginActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -317,33 +319,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         private final String mLogin;
         private final String URL = "https://donationserver.herokuapp.com/login/";
 
-        private String errorMsg = " trololo";
+        private String errorMsg;
 
         private int responseCode = 0;
 
-        //TODO fix response code 405
+        //TODO fix
         UserLoginTask(String login, String password) {
             mPassword = password;
             mLogin = login;
+            errorMsg = "lala";
         }
 
         @Override
         protected Integer doInBackground(Void... params) {
+            Response response;
             try {
                 JSONObject request = new JSONObject()
                         .put("username", mLogin)
                         .put("password", mPassword);
-                Log.d("REQUEST doInBack", request.toString());
-                responseCode = DonationHttpClient.loginRequest(URL, request);
 
+                response = DonationHttpClient.loginRequest(URL, request);
+                errorMsg = " " + response.body().string();
                 //TODO change response codes
                 Log.d("POST RESPONSE", "responseCode: " + responseCode);
-            } catch (IOException | JSONException ex) {
+                //Log.d("LOGINREQ responose", "" + response.body().string());
+            } catch (IOException | JSONException | NullPointerException ex) {
                 Log.d("EXCEPTION", ex.getMessage());
                 Toast.makeText(getApplicationContext(), "Exception occured", Toast.LENGTH_LONG).show();
-                return 0;
+                return 1;
             }
-            return responseCode;
+            return response.code();
         }
 
         @Override
@@ -354,12 +359,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             if (serverResponse == 200) {
                 finish();
-            } else if (serverResponse == 405) {
-                mLoginView.setError("Specify username");
+            } else if (serverResponse == 405 || serverResponse == 505) {
+                mLoginView.setError(errorMsg);
                 mLoginView.requestFocus();
-            } else if (serverResponse == 505) {
-                mPasswordView.setError("Wrong password");
-                mPasswordView.requestFocus();
             } else {
                 Toast.makeText(getApplicationContext(), "Error: " + serverResponse, Toast.LENGTH_LONG).show();
             }
@@ -396,20 +398,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         protected Integer doInBackground(Void... params) {
+            Response response;
             try {
                 JSONObject request = new JSONObject()
                         .put("username", mLogin)
                         .put("password", mPassword)
                         .put("email", mEmail);
-                responseCode = DonationHttpClient.registerRequest(URL, request);
-
+                response = DonationHttpClient.registerRequest(URL, request);
+                errorMsg = " " + response.body().string();
                 //TODO change response codes
                 Log.d("POST RESPONSE", "responseCode: " + responseCode);
             } catch (IOException | JSONException ex) {
                 Toast.makeText(getApplicationContext(), "Exception occured", Toast.LENGTH_LONG).show();
-                return 0;
+                return 1;
             }
-            return responseCode;
+            return response.code();
         }
 
         @Override
@@ -419,12 +422,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             if (serverResponse == 200) {
                 finish();
-            } else if (serverResponse == 405) {
-                mLoginView.setError("Nickname in use");
+            } else if (serverResponse == 405 || serverResponse == 505) {
+                mLoginView.setError(errorMsg);
                 mLoginView.requestFocus();
-            } else if (serverResponse == 505) {
-                mPasswordView.setError("Wrong password");
-                mPasswordView.requestFocus();
             } else {
                 Toast.makeText(getApplicationContext(), "Error: " + serverResponse, Toast.LENGTH_LONG).show();
             }

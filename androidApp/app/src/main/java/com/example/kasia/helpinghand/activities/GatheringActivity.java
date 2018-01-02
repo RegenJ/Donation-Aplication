@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import okhttp3.Response;
+
 public class GatheringActivity extends AppCompatActivity {
 
     private GatheringTask mGatheringTask = null;
@@ -183,8 +185,10 @@ public class GatheringActivity extends AppCompatActivity {
             mDescription = description;
         }
 
+        //TODO finish
         @Override
         protected Integer doInBackground(Void... params) {
+            Response response;
             try {
                 JSONObject request = new JSONObject()
                         .put("name", mName)
@@ -193,16 +197,17 @@ public class GatheringActivity extends AppCompatActivity {
                         .put("date", mDate)
                         .put("description", mDescription);
                 Log.d("REQUEST doInBack", request.toString());
-                responseCode = DonationHttpClient.loginRequest(URL, request);
+                response = DonationHttpClient.registerRequest(URL, request);
 
+                errorMsg = " " + response.body().string();
                 //TODO change response codes
                 Log.d("POST RESPONSE", "responseCode: " + responseCode);
             } catch (IOException | JSONException ex) {
                 Log.d("EXCEPTION", ex.getMessage());
                 Toast.makeText(getApplicationContext(), "Exception occured", Toast.LENGTH_LONG).show();
-                return 0;
+                return 1;
             }
-            return responseCode;
+            return response.code();
         }
 
         @Override

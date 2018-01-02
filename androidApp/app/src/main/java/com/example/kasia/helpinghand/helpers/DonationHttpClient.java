@@ -40,7 +40,7 @@ public class DonationHttpClient extends OkHttpClient{
         return clientInstance;
     }
 
-    public static int loginRequest(String url, JSONObject request) throws JSONException, IOException {
+    public static Response loginRequest(String url, JSONObject request) throws JSONException, IOException {
         Log.d("LOGINREQ reqLogin", request.getString("username"));
         Log.d("LOGINREQ reqPass", request.getString("password"));
         RequestBody requestBody = new MultipartBody.Builder()
@@ -56,12 +56,13 @@ public class DonationHttpClient extends OkHttpClient{
                 .build();
 
         Response response = getInstance().newCall(requestToSend).execute();
-        Log.d("LOGINREQ responose", "" + response.code());
-        return response.code();
+        Log.d("LOGINREQ code", "" + response.code());
+
+        return response;
 
     }
 
-    public static int registerRequest(String url, JSONObject request) throws JSONException, IOException {
+    public static Response registerRequest(String url, JSONObject request) throws JSONException, IOException {
         Log.d("REGREQ reqLogin", request.getString("username"));
         Log.d("REGINREQ reqEmail", request.getString("email"));
         Log.d("REGINREQ reqPass", request.getString("password"));
@@ -80,7 +81,7 @@ public class DonationHttpClient extends OkHttpClient{
 
         Response response = getInstance().newCall(requestToSend).execute();
         Log.d("REGREQ response", "" + response.code());
-        return response.code();
+        return response;
 
     }
     //send post request do server
