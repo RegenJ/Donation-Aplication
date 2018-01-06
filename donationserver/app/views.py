@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from app.models import Gathering
 
+
 @csrf_exempt
 def _check_if_username_is_free(username):
     """
@@ -23,6 +24,7 @@ def _check_if_username_is_free(username):
     except ObjectDoesNotExist:
         return True
 
+
 @csrf_exempt
 def register_user(request):
     """
@@ -31,9 +33,9 @@ def register_user(request):
     :return:
     """
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        email = request.POST['email']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
         if _check_if_username_is_free(username):
             User.objects.create_user(username=username, email=email, password=password)
             return render(request, 'login.html')
@@ -47,11 +49,13 @@ def register_user(request):
 def login_view(request):
     return render(request, 'login.html')
 
+
 @csrf_exempt
 def logout_user(request):
     if request.user.is_authenticated:
         logout(request)
     return render(request, 'login.html')
+
 
 @csrf_exempt
 def login_user(request):
@@ -59,10 +63,10 @@ def login_user(request):
     username = request.POST.get('username', None)
     logging.error('Username : ' + str(username))
     if username is None:
-        logging.error('Username was None: '+str(request.body))
+        logging.error('Username was None: ' + str(request.body))
         return HttpResponse('Please specify username\n', status=405)
-    password = request.POST['password']
-    logging.error('!!user: ' + username + '\t'+ password)
+    password = request.POST.get('password')
+    logging.error('!!user: ' + username + '\t' + password)
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
@@ -71,12 +75,15 @@ def login_user(request):
     else:
         return HttpResponse('Bad credentials\n', status=405)
 
+
 @csrf_exempt
 def home_view(request):
     if request.user.is_authenticated:
-        return render(request, 'home.html')
+        random_gatherings = list(Gathering.objects.all())
+        return render(request, 'home.html', {'random_gatherings': random_gatherings})
     else:
         return render(request, 'login.html')
+
 
 @csrf_exempt
 def change_pass(request):
@@ -85,6 +92,7 @@ def change_pass(request):
     else:
         return render(request, 'login.html')
 
+
 @csrf_exempt
 def gathering(request):
     if request.user.is_authenticated:
@@ -92,17 +100,21 @@ def gathering(request):
     else:
         return render(request, 'login.html')
 
+
 @csrf_exempt
 def create_gathering(request):
-    if request.user.is_authenticated and request.method=='POST':
-        purpose = request.POST['desc']
-        target = request.POST['money']
-        end_date = request.POST['date']
+    if request.user.is_authenticated and request.method == 'POST':
+        purpose = request.POST.get('desc')
+        target = request.POST.get('money')
+        end_date = request.POST.get('date')
+        title = request.POST.get('title')
         gathering = Gathering(owner=request.user,
                               purpose=purpose,
-                              end_date=datetime.utcnow(),
-                              start_date=datetime.utcnow(),
+                              end_date=end_date,
+                              start_date=datetime.utcnow().strftime("%M. %d, %Y"),
                               money_target=float(target),
-                              money_actual=0.0)
+                              money_actual=0.0,
+                              title=title,
+                              percentage=0)
         gathering.save()
-        return render(request, 'home.html')
+        return home_view(request)

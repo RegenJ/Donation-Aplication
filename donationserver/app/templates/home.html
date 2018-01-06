@@ -60,5 +60,41 @@
         </nav>
     </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<table id="random_gatherings" class="table">
+    <thead class="thead-inverse">
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Owner</th>
+    <th>Title</th>
+    <th>Target</th>
+    <th>Actual</th>
+    <th>Progress</th>
+    </thead>
+    <tbody>
+    {% for gather in random_gatherings %}
+        <tr>
+            <td>{{ gather.start_date }}</td>
+            <td>{{ gather.end_date }}</td>
+            <td>{{ gather.owner }}</td>
+            <td>{{ gather.title }}</td>
+            <td>{{ gather.money_target }} PLN</td>
+            <td>{{ gather.money_actual }} PLN</td>
+            <td>
+                <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"
+                         aria-valuemin="0"
+                         aria-valuemax="100">{{ gather.percentage }}%</div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 </body>
 </html>
