@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link href="/app/static/app/gathering.css" type="text/css" rel="stylesheet">
+    <script src="/app/static/app/gathering.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Helping Hand</title>
+</head>
+<body>
+<div class="wrapper"> <!-- for reasons -->
+    <div class="main-content">
+        <div class="container">
+            <div class="price-box">
+                <h3><span class="label label-info">How much money to gather ?</span></h3>
+                <form class="form-horizontal form-pricing" role="form">
+                    {% csrf_token %}
+                    <div class="price-slider">
+                        <h4 class="great">Amount</h4>
+
+                        <div class="col-sm-12">
+                            <div id="slider"></div>
+                        </div>
+                    </div>
+                    <div class="price-form">
+                        <div class="form-group">
+                            <label for="amount" class="col-sm-6 control-label">Amount (PLN): </label>
+                            <span class="help-text">Please choose your amount</span>
+
+                            <div class="col-sm-6">
+                                <input name="money" type="hidden" id="amount" class="form-control">
+
+                                <p class="price lead" id="amount-label"></p>
+                                <span class="price">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+
+    </div>
+    <div class="aside">
+        <h2><span class="label label-info">Choose end date of your gathering</span></h2>
+        <script src="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/js/gijgo.min.js"
+                type="text/javascript"></script>
+        <link href="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/css/gijgo.min.css" rel="stylesheet"
+              type="text/css"/>
+
+        <div class="container">
+            <br/>
+            <input name="date" id="datepicker" width="270"/>
+        </div>
+        <h2><span class="label label-info">Insert gathering title</span></h2>
+        <div class="form-group">
+            <label for="comment">Title:</label>
+            <textarea name="title" class="form-control" rows="3" id="title"></textarea>
+        </div>
+        <h2><span class="label label-info">Insert gathering description</span></h2>
+        <div class="form-group">
+            <label for="comment">Description:</label>
+            <textarea name="desc" class="form-control" rows="10" id="description"></textarea>
+        </div>
+        <h2>
+            <button type="submit" class="btn btn-success btn-lg" onclick="combineAndSendForms()">Create gathering
+            </button>
+        </h2>
+    </div>
+</div>
+</body>
+</html>
