@@ -54,6 +54,14 @@ body{
 
 }
 
+
+
+.nav .navbar-header .navbar-brand a .logo img{
+    width: 200px;
+    border-radius: 50%;
+
+}
+
 .find_gathering .label span {
     text-align: center;
     padding: 14px;
@@ -144,10 +152,10 @@ body{
 
 }
 
-.table i:before {
-    display: block;
+.table .thead-inverse i {
     float: right;
-
+    padding: 2px;
+    color: gray;
 }
 
 
@@ -167,9 +175,6 @@ body{
 }
 
 
-/* Credit to bootsnipp.com for the css for the color graph
- ESTO SOLO ES PARA EL FORMULARIO DE LOGIN
-*/
 .colorgraph {
     height: 5px;
     border-top: 0;
