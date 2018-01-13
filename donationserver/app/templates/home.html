@@ -7,8 +7,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <link href="/app/static/app/home.css" type="text/css" rel="stylesheet">
-    <script src="/app/static/app/home.js"></script>
+    <link href="../static/app/home.css" type="text/css" rel="stylesheet">
+    <script src="../static/app/home.js"></script>
     <meta charset="UTF-8">
     <title>Helping Hand</title>
 </head>
@@ -63,17 +63,21 @@
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
+<div class="main-container">
+
+<article class="col-sm-12  box ">
+    <h3> Welcome to Helping Hand! </h3>
+    <p> Choose what you want to do or...</p>
+    <p> Donate somebody: </p>
+</article>
 <table id="random_gatherings" class="table">
     <thead class="thead-inverse">
-    <th>Start date</th>
-    <th>End date</th>
-    <th>Owner</th>
-    <th>Title</th>
-    <th>Target</th>
-    <th>Actual</th>
+    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(1)')">Start date <i class="glyphicon glyphicon-sort"></i></th>
+    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(2)')">End date <i class="glyphicon glyphicon-sort"></i></th>
+    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(3)')">Owner <i class="glyphicon glyphicon-sort"></i></th>
+    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(4)')">Title <i class="glyphicon glyphicon-sort"></i></th>
+    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(5)')">Target <i class="glyphicon glyphicon-sort"></i></th>
+    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(6)')">Actual <i class="glyphicon glyphicon-sort"></i></th>
     <th>Progress</th>
     </thead>
     <tbody>
@@ -96,5 +100,6 @@
     {% endfor %}
     </tbody>
 </table>
+</div>
 </body>
 </html>

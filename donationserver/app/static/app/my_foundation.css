@@ -60,69 +60,108 @@ body{
 
 }
 
-
-.label h3 {
-    text-align: left;
-    padding: 8px;
-    color:  #000000;
-    font-weight: bold;
-}
-
-h4 {
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
-.main-container hr {
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
-.fund-menu {
-    background-color: blue;
-    padding: 20px;
-}
-
-.fund-menu a {
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-}
-
-.fund-menu a:hover {
-    font-size: 110%;
-    color: gray;
-}
-
-.fund-menu ul {
-    list-style-type: none;
-}
-
-.fund-menu ul li {
-    padding: 5px;
-    color: #000;
-}
-
-.fund-menu ul li span {
-    color: gray;
-    font-style:  italic;
-    font-weight: bold;
-    
-}
-.divider {
-    padding: 15px;
-}
-
 .main-container .box {
     border-radius: 5px;
     background-color: #fff;
     margin: 20px;
+
+}
+
+
+    .main-container h3 {
+        text-align: left;
+        padding: 8px;
+        color:  #000000;
+        font-weight: bold;
+    }
+
+    .main-container h4 {
+        font-weight: bold;
+        font-size: 1.2em;
+
+    }
+
+    .main-container hr {
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+.fund-menu {
+    padding: 20px;
+}
+
+    .fund-menu a {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .fund-menu a:hover {
+        font-size: 110%;
+        color: gray;
+    }
+
+    .fund-menu ul {
+        display: none;
+        list-style-type: none;
+    }
+
+    .fund-menu ul li {
+        padding: 5px;
+        color: #000;
+    }
+
+    .fund-menu ul li span {
+        color: gray;
+        font-style:  italic;
+        font-weight: bold;
+
+    }
+
+    .fund-menu .contactForm input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    .fund-menu .contactForm input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .fund-menu .contactForm input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    .fund-menu .contactForm  {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        display: none;
+    }
+
+.divider {
+    padding: 15px;
 }
 
 
 
 
+
+
+.search_bar {
+    padding: 10px;
+}
 
 .table .thead-inverse {
     background-color: #ddd;

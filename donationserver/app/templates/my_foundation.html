@@ -66,23 +66,53 @@
 <br>
 <br>
 <div class="main-container">
-    <div class="row label">
+    <div class="col-sm-12  box ">
         <h3>My foundation</h3>
     </div>
+
     <article class="col-sm-12 col-md-6 fund-menu box ">
         <h4> What would you like to do: </h4>
              <hr>
             <a href="https://donationserver.herokuapp.com/gathering/"> Create new gathering</a>
-             <hr>
-            <a href="#">Search for donators</a>
-            <hr>
-            <a onclick="w3.toggleShow('#details')"> Foundation details</a>
-            <ul id="details">
+                <hr>
+            <a onclick="w3.toggleShow('#donatorDetails')">Search for donators</a>
+            <ul id="donatorDetails">
+                <li> <a href="#"> Add advertisment </a> </li>
+                <li> <a href="#"> Up your gathering </a>  </li>
+                <li> </li>
+
+            </ul>
+                <hr>
+            <a onclick="w3.toggleShow('#fundDetails')"> Foundation details</a>
+            <ul id="fundDetails">
                 <li>Name: <span> Green Grass Fund</span></li>
                 <li>Founder <span> Jan Pan</span></li>
+                <li>Mail <span> ggF@gmail.com </span></li>
                 <li>Budget <span> 100000$ </span></li>
 
             </ul>
+                 <hr>
+            <a onclick="w3.toggleShow('.contactForm')"> Send to donators</a>
+            <div class="contactForm">
+                <form action="#">
+                    <label for="ftitle">Title</label>
+                    <input type="text" id="ftitle" name="title" placeholder="Title">
+
+                    <label for="frecipients">Send to</label>
+                    <select id="frecipients" name="recipients">
+                        <option value="all">All</option>
+                        <option value="single">Single</option>
+                    </select>
+
+                    <label for="fsingle">Email</label>
+                    <input type="text" id="fsingle" name="single" placeholder="Email">
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
+
+                    <input type="submit" value="Send">
+                </form>
+            </div>
 
     </article>
 
