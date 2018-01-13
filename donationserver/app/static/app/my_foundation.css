@@ -54,82 +54,74 @@ body{
 
 }
 
-
-
 .nav .navbar-header .navbar-brand a .logo img{
     width: 200px;
     border-radius: 50%;
 
 }
 
-.find_gathering .label h3 {
+
+.label h3 {
     text-align: left;
     padding: 8px;
     color:  #000000;
     font-weight: bold;
 }
 
-.search_bar {
-    overflow: hidden;
-    background-color: #e9e9e9;
-    margin-left: 2px;
-
+h4 {
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
-.search_bar span {
-    float: left;
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 24px;
+.main-container hr {
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.fund-menu {
+    background-color: blue;
+    padding: 20px;
+}
+
+.fund-menu a {
+    padding: 10px;
     text-decoration: none;
-
-}
-
-.search_bar a {
-    float: left;
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-
-    cursor: pointer;
-}
-
-.search_bar a:hover {
-    background-color: #ccc;
     color: black;
 }
 
-.search_bar a.active {
-    background-color: #09ba32;
-    color: white;
+.fund-menu a:hover {
+    font-size: 110%;
+    color: gray;
 }
 
-.search_bar input[type=text] {
-    float: right;
-    padding: 6px;
-    border: none;
-    margin-top: 8px;
-    margin-right: 16px;
-
+.fund-menu ul {
+    list-style-type: none;
 }
 
-.search_bar .search-container button {
-    float: right;
-    padding: 6px 12px;
-    margin-top: 8px;
-    margin-right: 16px;
-    background: #ddd;
-
-    border: none;
-    cursor: pointer;
+.fund-menu ul li {
+    padding: 5px;
+    color: #000;
 }
 
-.search_bar .search-container button:hover {
-    background: #ccc;
+.fund-menu ul li span {
+    color: gray;
+    font-style:  italic;
+    font-weight: bold;
+    
 }
+.divider {
+    padding: 15px;
+}
+
+.main-container .box {
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 20px;
+}
+
+
+
 
 
 .table .thead-inverse {
