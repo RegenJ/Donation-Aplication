@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
-
+from app.utils import find_best_matches
 from app.models import Gathering
 
 
@@ -118,3 +118,12 @@ def create_gathering(request):
                               percentage=0)
         gathering.save()
         return home_view(request)
+
+
+@csrf_exempt
+def query_gatherings(request):
+    if request.user.is_authenticated and request.method == 'POST':
+        key = request.POST.get('key')
+        all_entries = list(Gathering.objects.all())
+        best_matches = find_best_matches(10, key, all_entries)
+        return render(request, 'donate_others.html', {'searched_gatherings': best_matches})
