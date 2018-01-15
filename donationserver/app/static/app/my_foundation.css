@@ -139,16 +139,18 @@ body{
         cursor: pointer;
     }
 
+
+.fund-menu .contactForm  {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    display: none;
+}
+
     .fund-menu .contactForm input[type=submit]:hover {
         background-color: #45a049;
     }
 
-    .fund-menu .contactForm  {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-        display: none;
-    }
 
 .divider {
     padding: 15px;
