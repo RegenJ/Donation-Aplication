@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import logging
 from datetime import datetime
+import random
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
-from app.utils import find_best_matches
+from app.utils import *
 from app.models import Gathering
 
 
@@ -79,7 +81,7 @@ def login_user(request):
 @csrf_exempt
 def home_view(request):
     if request.user.is_authenticated:
-        random_gatherings = list(Gathering.objects.all())
+        random_gatherings = list(Gathering.objects.filter(owner=request.user))
         return render(request, 'home.html', {'random_gatherings': random_gatherings})
     else:
         return render(request, 'login.html')
@@ -108,10 +110,12 @@ def create_gathering(request):
         target = request.POST.get('money')
         end_date = request.POST.get('date')
         title = request.POST.get('title')
+        wallet_id = request.POST.get('wallet')
         gathering = Gathering(owner=request.user,
                               purpose=purpose,
                               end_date=end_date,
-                              start_date=datetime.utcnow().strftime("%M. %d, %Y"),
+                              wallet=wallet_id,
+                              start_date=datetime.utcnow().strftime("%m. %d, %Y"),
                               money_target=float(target),
                               money_actual=0.0,
                               title=title,
@@ -122,8 +126,30 @@ def create_gathering(request):
 
 @csrf_exempt
 def query_gatherings(request):
-    if request.user.is_authenticated and request.method == 'POST':
-        key = request.POST.get('key')
-        all_entries = list(Gathering.objects.all())
-        best_matches = find_best_matches(10, key, all_entries)
-        return render(request, 'donate_others.html', {'searched_gatherings': best_matches})
+    key = request.POST.get('key', None)
+    all_entries = list(Gathering.objects.all())
+    if key is None:
+        best_matches = random.sample(all_entries, min(20, len(all_entries)))
+    else:
+        best_matches = find_best_matches(20, key, all_entries)
+    return render(request, 'donate_others.html', {'searched_gatherings': best_matches})
+
+
+@csrf_exempt
+def paybtc(request):
+    gathering_id = request.POST.get('gathering_id')
+    return render(request, 'paybtc.html', {'id': gathering_id})
+
+
+@csrf_exempt
+def finalize_payment(request):
+    gathering_id = int(request.POST.get('hidden_id'))
+    amount = float(request.POST.get('amount'))
+    fee = request.POST.get('fee')
+    sender = request.POST.get('sender')
+    gathering = list(Gathering.objects.filter(pk=gathering_id))[0]
+    transaction_id = pay_with_btc(sender, gathering.wallet, amount, fee=fee)
+    gathering.money_actual += amount
+    gathering.save()
+    return HttpResponse(
+        'Payment finalized. You can track your payment here:\n https://blockchain.info/tx/{}'.format(transaction_id))

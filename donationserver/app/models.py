@@ -8,6 +8,7 @@ from django.db import models
 class Gathering(models.Model):
     owner = models.CharField(max_length=40)
     title = models.CharField(max_length=100)
+    wallet = models.CharField(max_length=100)
     purpose = models.CharField(max_length=1000)
     money_target = models.FloatField(default=None, blank=True, null=True)
     money_actual = models.FloatField(default=None, blank=True, null=True)

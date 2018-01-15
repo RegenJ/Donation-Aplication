@@ -7,11 +7,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <link href="/app/static/app/donate_others.css" type="text/css" rel="stylesheet">
     <link href="/app/static/app/home.css" type="text/css" rel="stylesheet">
-    <script src="/app/static/app/donate_others.js"></script>
     <script src="/app/static/app/home.js"></script>
+    <script src="/app/static/app/paybtc.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -32,11 +30,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png" alt="Logo">  </a>
+                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png"
+                                                          alt="Logo"> </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li ><a href="#" class="">Home</a></li>
+                        <li class="active"><a href="#" class="">Home</a></li>
                         <li class=" dropdown">
                             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">Gatherings<span class="caret"></span></a>
@@ -49,7 +48,7 @@
                             </ul>
                         </li>
                         <li><a href="#">My foundation</a></li>
-                        <li class="active"><a href="https://donationserver.herokuapp.com/donateothers/">Donate others</a></li>
+                        <li><a href="https://donationserver.herokuapp.com/donateothers/">Donate others</a></li>
                     </ul>
                     <ul class="nav navbar-nav pull-right">
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown"
@@ -70,57 +69,29 @@
 <br>
 <br>
 <br>
-<div class="find_gathering">
-    <div class="row label">
-        <h3>Who would you like to donate?</h3>
-    </div>
-    <div class="search_bar">
-        <div class="row">
-            <span> Search by: </span>
-{#            <a class="active" id="user">User</a>#}
-            <a class="active" id="title">Title</a>
-            <div class="search-container">
-
-                <input type="text" placeholder="Search...." name="search_key">
-                <button type="submit" onclick="combineAndSendForms()"><i class="glyphicon glyphicon-search"> </i> </button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
 <br>
-<table id="search_gatherings" class="table">
-    <thead class="thead-inverse">
-    <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(1)')">Start date <i class="glyphicon glyphicon-sort"></i>  </th>
-    <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(2)')">End date <i class="glyphicon glyphicon-sort"></i> </th>
-    <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(3)')">Owner <i class="glyphicon glyphicon-sort"></i> </th>
-    <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(4)')">Title <i class="glyphicon glyphicon-sort"></i> </th>
-    <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(5)')">Target <i class="glyphicon glyphicon-sort"></i> </th>
-    <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(6)')">Actual <i class="glyphicon glyphicon-sort"></i> </th>
-    <th>Progress</th>
-    <th>Donation</th>
-    </thead><tbody>
-    {% for gather in searched_gatherings %}
-        <tr>
-            <td>{{ gather.start_date }}</td>
-            <td>{{ gather.end_date }}</td>
-            <td>{{ gather.owner }}</td>
-            <td>{{ gather.title }}</td>
-            <td>{{ gather.money_target }} PLN</td>
-            <td>{{ gather.money_actual }} PLN</td>
-            <td>
-                <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"
-                         aria-valuemin="0"
-                         aria-valuemax="100">{{ gather.percentage }}%</div>
-                </div>
-            </td>
-            <td><button id="{{ gather.id }}" class="btn btn-success" onclick="sendBTC(this.id)"> Send BTC </button></td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="text-center" style="margin-left: 150px; margin-right: 150px">
+    <div class="form-group">
+        <label for="comment">Your wallet id:</label>
+        <textarea name="sender" class="form-control" rows="1" id="sender"></textarea>
+    </div>
 
+    <div class="form-group">
+        <label for="comment">Amount BTC:</label>
+        <textarea name="amount" class="form-control" rows="1" id="amount"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Transaction fee (BTC):</label>
+        <textarea name="fee" class="form-control" rows="1" id="fee"></textarea>
+    </div>
+
+    <input name="hidden_id" type="hidden" value="{{ id }}" id="hidden_id">
+
+    <h2>
+        <button type="submit" class="btn btn-success btn-lg" onclick="combineAndSendForms()">Send BTC
+        </button>
+    </h2>
+</div>
 </body>
 </html>

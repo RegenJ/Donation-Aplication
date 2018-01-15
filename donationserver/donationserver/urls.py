@@ -27,4 +27,7 @@ urlpatterns = [
     url(r'^pass/', views.change_pass, name='pass'),
     url(r'^creategathering/', views.create_gathering, name='creategathering'),
     url(r'^register/', views.register_user, name='register'),
+    url(r'^donateothers/', views.query_gatherings, name='donate'),
+    url(r'^paybtc/', views.paybtc, name='paybtc'),
+    url(r'^transaction/', views.finalize_payment, name='transaction'),
 ]
