@@ -26,26 +26,37 @@ $(document).ready(function () {
     });
 });
 
+// form and send request
 
-//send request
-function combineAndSendForms() {
-    var $newForm = $("<form></form>")    // our new form.
-        .attr({method: "POST", action: "https://donationserver.herokuapp.com/search/"}) // customise as required
-    ;
-    $(":input:not(:submit, :button)").each(function () {  // grab all the useful inputs
-        $newForm.append($("<input type=\"hidden\" />")   // create a new hidden field
-            .attr('name', this.name)   // with the same name (watch out for duplicates!)
-            .val($(this).val())        // and the same value
-        );
-    });
-    var desc = document.getElementsByName("desc").value;
-    $newForm.append($("<input type=\"hidden\" />")   // create a new hidden field
-        .attr('name', "desc")   // with the same name (watch out for duplicates!)
-        .val(desc)        // and the same value
-    );
-    $newForm
-        .appendTo(document.body)  // not sure if this is needed?
-        .submit()                 // submit the form
-    ;
+function combineAndSend() {
+    console.log("begin...");
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST" );
+    form.setAttribute("action", "https://donationserver.herokuapp.com/donateothers/");
+
+    var hiddenField1 = document.createElement("input");
+    hiddenField1.setAttribute("type", "hidden");
+
+
+    //( $('a.search_bar').attr('class') === "active")
+    if ( $('#user').attr('class') === "active") {
+        hiddenField1.setAttribute("name", 'key');
+        //hiddenField1.setAttribute("value", $('#user').text());
+    } else {
+        hiddenField1.setAttribute("name", 'key');
+        //hiddenField1.setAttribute("value", $('#title').text());
+    }
+
+    hiddenField1.setAttribute("value", $('#searchVal').val());
+
+   // alert("Value: " + $('#searchVal').val() );
+    form.appendChild(hiddenField1);
+
+    document.body.appendChild(form);
+
+    //alert("hidden: " + hiddenField1);
+    console.log("jujfv");
+    form.submit();
 }
+
 
