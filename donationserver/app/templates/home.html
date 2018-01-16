@@ -7,6 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
     <link href="../static/app/home.css" type="text/css" rel="stylesheet">
     <script src="../static/app/home.js"></script>
     <meta charset="UTF-8">
@@ -64,42 +65,97 @@
 <br>
 <br>
 <div class="main-container">
+    <div class="col-sm-12  col-md-12 welcome box ">
+        <h3>Welcome to Helping Hand</h3>
 
-<article class="col-sm-12  box ">
-    <h3> Welcome to Helping Hand! </h3>
-    <p> Choose what you want to do or...</p>
-    <p> Donate somebody: </p>
-</article>
-<table id="random_gatherings" class="table">
-    <thead class="thead-inverse">
-    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(1)')">Start date <i class="glyphicon glyphicon-sort"></i></th>
-    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(2)')">End date <i class="glyphicon glyphicon-sort"></i></th>
-    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(3)')">Owner <i class="glyphicon glyphicon-sort"></i></th>
-    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(4)')">Title <i class="glyphicon glyphicon-sort"></i></th>
-    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(5)')">Target <i class="glyphicon glyphicon-sort"></i></th>
-    <th onclick="w3.sortHTML('#random_gatherings','.item', 'td:nth-child(6)')">Actual <i class="glyphicon glyphicon-sort"></i></th>
-    <th>Progress</th>
-    </thead>
-    <tbody>
-    {% for gather in random_gatherings %}
-        <tr>
-            <td>{{ gather.start_date }}</td>
-            <td>{{ gather.end_date }}</td>
-            <td>{{ gather.owner }}</td>
-            <td>{{ gather.title }}</td>
-            <td>{{ gather.money_target }} PLN</td>
-            <td>{{ gather.money_actual }} PLN</td>
-            <td>
-                <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"
-                         aria-valuemin="0"
-                         aria-valuemax="100">{{ gather.percentage }}%</div>
-                </div>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        <p> Our service is free to use Bitcoin donation platform.</p>
+        <p> If you're looking for unique source of crowdfunding for your project or foundation
+            we a just for you!
+            Helping hand is based on payments by cryptocurrency Bitcoin, which give a chance to finance your
+            ideas with money independent of inflation and governments. To find out more check our subpages.
+        </p>
+    </div>
+
+    <article class="col-sm-12 col-md-6  box ">
+        <h4> What would you like to do: </h4>
+        <hr>
+        <a href="https://donationserver.herokuapp.com/gathering/"> Create new gathering</a>
+        <hr>
+        <a href="https://donationserver.herokuapp.com/donateothers/"> Browse donations</a>
+        <hr>
+        <a onclick="w3.toggleShow('.contactForm')"> Contact us</a>
+        <div class="contactForm">
+            <form action="#">
+                <label for="fname">Your name</label>
+                <input type="text" id="fname" name="name" placeholder="Name">
+
+                <label for="fsubject">Subject</label>
+                <select id="fsubject" name="recipients">
+                    <option value="all">General</option>
+                    <option value="single">Security</option>
+                    <option value="single">Bugs</option>
+                    <option value="single">Other</option>
+                </select>
+
+                <label for="femail">Your email</label>
+                <input type="text" id="femail" name="email" placeholder="ex@example.com">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
+
+                <input type="submit" value="Send">
+            </form>
+        </div>
+
+    </article>
+
+
+    <aside class="col-sm-12 col-md-5 search_bar box">
+        <table id="search_gatherings" class="table">
+            <h4>Subscribed gatherings </h4>
+            <thead class="thead-inverse">
+            <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(1)')">End date <i class="glyphicon glyphicon-sort"></i> </th>
+            <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(2)')">Title <i class="glyphicon glyphicon-sort"></i> </th>
+            <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(3)')">Actual <i class="glyphicon glyphicon-sort"></i> </th>
+            <th>Progress</th>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
+
+    </aside>
+
+
+    <article class="col-sm-12 col-md-11 box">
+        <h4> Useful infos: </h4>
+        <ul class="useful-info">
+            <li>About cryptocurrencies<a href="https://blockgeeks.com/guides/what-is-cryptocurrency/"> blockgeeks cryptocurrency guide</a></li>
+            <li>Bitcoin <a href="https://bitcoin.org/"> Official bitcoin page</a></li>
+            <li>Our rules <a href="#"> </a></li>
+            <li>Security <a href="http://bitcoinsecurity101.com/getting-started/"> Security in bitcoin payments </a></li>
+
+        </ul>
+    </article>
 </div>
+
+<footer class="footer-distributed">
+
+    <div class="row">
+        <div class="col-md-4 footer-col">
+            <h3> Helping Hand</h3>
+                <img src="../static/app/helpinghands_logo2.png" alt="logo"/>
+        </div>
+        <div class="col-md-4 footer-col">
+            <p>More about us</p>
+        </div>
+        <div class="col-md-4 footer-col">
+            <p>Contact</p>
+        </div>
+
+
+    </div>
+
+</footer>
 </body>
 </html>
