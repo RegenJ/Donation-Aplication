@@ -129,6 +129,10 @@ body{
     background: #ccc;
 }
 
+.table {
+    padding: 10px;
+
+}
 
 .table .thead-inverse {
     background-color: #ddd;
@@ -182,3 +186,60 @@ body{
     background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
 
+
+.footer-distributed {
+    background-color: #09ba32;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    width: 100%;
+    /*font: bold 16px sans-serif;*/
+    text-align: left;
+    padding: 20px 30px 20px;
+    overflow: hidden
+
+}
+
+.footer-distributed ul {
+    list-style-type: none;
+    padding-left: 3px;
+}
+
+.footer-distributed li {
+    padding-bottom: 5px;
+}
+
+.footer-distributed .footer-col p {
+    font-weight: bolder;
+}
+.footer-distributed .footer-col a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-distributed .footer-col a:hover {
+    text-decoration: none;
+    color: black;
+}
+.footer-distributed h3 {
+    color: #ffffff;
+    margin: 0 0 10px;
+}
+
+.footer-distributed .footer-col .company  {
+    margin-top: 8px;
+    font-weight: normal;
+
+}
+.footer-distributed img {
+    margin-left: 25px;
+    padding: 5px;
+    width: 25%;
+
+}
+
+
+.footer-col {
+    display: inline-block;
+    float: left;
+    color: #ffffff;
+}

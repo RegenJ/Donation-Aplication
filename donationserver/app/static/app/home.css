@@ -55,6 +55,145 @@ body{
     background-color: lightgreen;
 }
 
+
+.main-container .box {
+    padding: 17px;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 20px;
+}
+
+
+    .main-container  h3 {
+        text-align: left;
+        padding: 8px;
+        color:  #000000;
+        font-weight: bold;
+    }
+
+    .main-container h4 {
+        font-weight: bold;
+        font-size: 1.2em;
+
+    }
+
+    .main-container p {
+        padding-top: 4px;
+        padding-left: 12px;
+        font-size: 1.2em;
+    }
+    .main-container hr {
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    .main-container a {
+        padding: 15px;
+        text-decoration: none;
+        color: black;
+    }
+
+
+    .main-container a:hover {
+        font-size: 110%;
+        color: gray;
+    }
+
+    .main-container ul {
+        list-style-type: none;
+}
+
+    .main-container ul li {
+    padding: 10px;
+    color: #000;
+}
+
+    .main-container ul li span {
+        color: gray;
+        font-style:  italic;
+        font-weight: bold;
+
+    }
+
+    .main-container .search_bar {
+        margin-left: 45px;
+
+    }
+
+    .main-container .useful-info li{
+
+    }
+
+    .main-container .useful-info a{
+        font-weight: normal;
+        color: #1CA347;
+    }
+
+    .main-container .useful-info a:hover{
+        color: orange;
+        font-size: 100%;
+        font-weight: bold;
+    }
+
+    .main-container .contactForm input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    .main-container .contactForm input[type=submit] {
+        background-color: #09ba32;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .main-container .contactForm input[type=submit]:hover {
+        background-color: #09ba32;
+    }
+
+    .main-container .contactForm  {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        display: none;
+    }
+
+
+
+.table .thead-inverse {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+
+.table .thead-inverse th {
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+
+.table .thead-inverse th:hover {
+    background-color: #e9e9e9;
+
+}
+
+.table .thead-inverse i {
+    float: right;
+    padding: 2px;
+    color: gray;
+}
+
+
 /* Credit to bootsnipp.com for the css for the color graph
  ESTO SOLO ES PARA EL FORMULARIO DE LOGIN
 */
@@ -68,3 +207,63 @@ body{
   background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
+
+
+.footer-distributed {
+    background-color: #09ba32;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    width: 100%;
+    /*font: bold 16px sans-serif;*/
+    text-align: left;
+    padding: 20px 30px 20px;
+    overflow: hidden
+
+}
+
+.footer-distributed ul {
+    list-style-type: none;
+    padding-left: 3px;
+}
+
+.footer-distributed li {
+    padding-bottom: 5px;
+}
+
+.footer-distributed .footer-col p {
+    font-weight: bolder;
+}
+.footer-distributed .footer-col a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-distributed .footer-col a:hover {
+    text-decoration: none;
+    color: black;
+}
+.footer-distributed h3 {
+    color: #ffffff;
+    margin: 0 0 10px;
+}
+
+.footer-distributed .footer-col .company  {
+    margin-top: 8px;
+    font-weight: normal;
+
+}
+.footer-distributed img {
+    margin-left: 25px;
+    padding: 5px;
+    width: 25%;
+
+}
+
+
+    .footer-col {
+        display: inline-block;
+        float: left;
+        color: #ffffff;
+    }
+
+

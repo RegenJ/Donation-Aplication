@@ -17,6 +17,8 @@
 //
 // });
 
+
+
 //switch active search bar element
 $(document).ready(function () {
     $(".search_bar .row a").on("click", function () {
@@ -57,3 +59,4 @@ function sendBTC(gathering_id) {
             .submit()                 // submit the form
         ;
 }
+

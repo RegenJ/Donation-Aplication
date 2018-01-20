@@ -60,69 +60,112 @@ body{
 
 }
 
-
-.label h3 {
-    text-align: left;
-    padding: 8px;
-    color:  #000000;
-    font-weight: bold;
-}
-
-h4 {
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
-.main-container hr {
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
-.fund-menu {
-    background-color: blue;
-    padding: 20px;
-}
-
-.fund-menu a {
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-}
-
-.fund-menu a:hover {
-    font-size: 110%;
-    color: gray;
-}
-
-.fund-menu ul {
-    list-style-type: none;
-}
-
-.fund-menu ul li {
-    padding: 5px;
-    color: #000;
-}
-
-.fund-menu ul li span {
-    color: gray;
-    font-style:  italic;
-    font-weight: bold;
-    
-}
-.divider {
-    padding: 15px;
-}
-
 .main-container .box {
     border-radius: 5px;
     background-color: #fff;
     margin: 20px;
+
+}
+
+
+    .main-container h3 {
+        text-align: left;
+        padding: 8px;
+        color:  #000000;
+        font-weight: bold;
+    }
+
+    .main-container h4 {
+        font-weight: bold;
+        font-size: 1.2em;
+
+    }
+
+    .main-container hr {
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+.fund-menu {
+    padding: 20px;
+    margin-right: 25px;
+}
+
+    .fund-menu a {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .fund-menu a:hover {
+        font-size: 110%;
+        color: gray;
+    }
+
+    .fund-menu ul {
+        display: none;
+        list-style-type: none;
+    }
+
+    .fund-menu ul li {
+        padding: 5px;
+        color: #000;
+    }
+
+    .fund-menu ul li span {
+        color: gray;
+        font-style:  italic;
+        font-weight: bold;
+
+    }
+
+    .fund-menu .contactForm input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    .fund-menu .contactForm input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+.fund-menu .contactForm  {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    display: none;
+}
+
+    .fund-menu .contactForm input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+
+.divider {
+    padding: 15px;
 }
 
 
 
 
+
+
+.search_bar {
+    padding: 20px;
+    margin: 55px;
+}
 
 .table .thead-inverse {
     background-color: #ddd;
@@ -176,3 +219,60 @@ h4 {
     background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
 
+
+.footer-distributed {
+    background-color: #09ba32;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    width: 100%;
+    /*font: bold 16px sans-serif;*/
+    text-align: left;
+    padding: 20px 30px 20px;
+    overflow: hidden
+
+}
+
+.footer-distributed ul {
+    list-style-type: none;
+    padding-left: 3px;
+}
+
+.footer-distributed li {
+    padding-bottom: 5px;
+}
+
+.footer-distributed .footer-col p {
+    font-weight: bolder;
+}
+.footer-distributed .footer-col a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-distributed .footer-col a:hover {
+    text-decoration: none;
+    color: black;
+}
+.footer-distributed h3 {
+    color: #ffffff;
+    margin: 0 0 10px;
+}
+
+.footer-distributed .footer-col .company  {
+    margin-top: 8px;
+    font-weight: normal;
+
+}
+.footer-distributed img {
+    margin-left: 25px;
+    padding: 5px;
+    width: 25%;
+
+}
+
+
+.footer-col {
+    display: inline-block;
+    float: left;
+    color: #ffffff;
+}

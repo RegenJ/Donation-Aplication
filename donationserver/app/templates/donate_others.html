@@ -7,11 +7,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <link href="/app/static/app/donate_others.css" type="text/css" rel="stylesheet">
     <link href="/app/static/app/home.css" type="text/css" rel="stylesheet">
     <script src="/app/static/app/donate_others.js"></script>
     <script src="/app/static/app/home.js"></script>
+    <script src="../static/app/w3.js"></script>
+
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -77,6 +80,7 @@
     <div class="search_bar">
         <div class="row">
             <span> Search by: </span>
+
 {#            <a class="active" id="user">User</a>#}
             <a class="active" id="title">Title</a>
             <div class="search-container">
@@ -84,13 +88,15 @@
                 <input type="text" placeholder="Search...." id="search_key">
                 <button type="submit" onclick="combineAndSendForms()"><i class="glyphicon glyphicon-search"> </i> </button>
 
+
             </div>
         </div>
     </div>
 </div>
 
 <br>
-<table id="search_gatherings" class="table">
+
+<table id="search_gatherings" class="col-md-11 table">
     <thead class="thead-inverse">
     <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(1)')">Start date <i class="glyphicon glyphicon-sort"></i>  </th>
     <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(2)')">End date <i class="glyphicon glyphicon-sort"></i> </th>
@@ -122,5 +128,32 @@
     </tbody>
 </table>
 
+<footer class="footer-distributed">
+
+    <div class="row">
+        <div class="col-md-4 footer-col">
+            <img src="../static/app/helpinghands_logo2.png" alt="logo"/>
+            <p class="company">Ⓒ helpinghandcompany </p>
+        </div>
+        <div class="col-md-4 footer-col">
+            <p>More about us</p>
+            <ul>
+                <li> <a href="www.facebook.com"> Facebook </a> </li>
+                <li> <a href="https://github.com/RegenJ/Donation-Aplication"> Github </a> </li>
+
+            </ul>
+        </div>
+        <div class="col-md-4 footer-col">
+            <p>Contact</p>
+            <ul>
+                <li> <a href="#"> helpinghand@hh.com </a>  </li>
+
+            </ul>
+        </div>
+
+
+    </div>
+
+</footer>
 </body>
 </html>
