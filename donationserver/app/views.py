@@ -126,7 +126,7 @@ def create_gathering(request):
 
 @csrf_exempt
 def query_gatherings(request):
-    key = request.POST.get('key', None)
+    key = request.POST.get('search_key', None)
     all_entries = list(Gathering.objects.all())
     if key is None:
         best_matches = random.sample(all_entries, min(20, len(all_entries)))

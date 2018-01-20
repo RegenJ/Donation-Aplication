@@ -32,9 +32,9 @@ function combineAndSendForms() {
     var $newForm = $("<form></form>")    // our new form.
         .attr({method: "POST", action: "https://donationserver.herokuapp.com/donateothers/"}) // customise as required
     ;
-    var key = document.getElementsByName("search_key").value;
+    var key = document.getElementById("search_key").value;
     $newForm.append($("<input type=\"hidden\" />")   // create a new hidden field
-        .attr('name', "key")   // with the same name (watch out for duplicates!)
+        .attr('name', "search_key")   // with the same name (watch out for duplicates!)
         .val(key)        // and the same value
     );
     $newForm
