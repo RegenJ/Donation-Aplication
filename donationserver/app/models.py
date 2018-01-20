@@ -17,6 +17,12 @@ class Gathering(models.Model):
     percentage = models.IntegerField(default=0)
 
 
+class UsersWalletInfo(models.Model):
+    owner = models.CharField(max_length=40)
+    wallet_wif = models.CharField(max_length=100)
+    wallet_address = models.CharField(max_length=100)
+
+
 class Foundation(models.Model):
     owner = models.CharField(max_length=40)
     # todo: jakis prawny szajs

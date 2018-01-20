@@ -81,7 +81,7 @@
             <a class="active" id="title">Title</a>
             <div class="search-container">
 
-                <input type="text" placeholder="Search...." name="search_key">
+                <input type="text" placeholder="Search...." id="search_key">
                 <button type="submit" onclick="combineAndSendForms()"><i class="glyphicon glyphicon-search"> </i> </button>
 
             </div>
@@ -107,8 +107,8 @@
             <td>{{ gather.end_date }}</td>
             <td>{{ gather.owner }}</td>
             <td>{{ gather.title }}</td>
-            <td>{{ gather.money_target }} PLN</td>
-            <td>{{ gather.money_actual }} PLN</td>
+            <td>{{ gather.money_target }} BTC</td>
+            <td>{{ gather.money_actual }} BTC</td>
             <td>
                 <div class="progress progress-striped">
                     <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"

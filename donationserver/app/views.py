@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadReq
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from app.utils import *
-from app.models import Gathering
+from app.models import Gathering, UsersWalletInfo
 
 
 @csrf_exempt
@@ -40,6 +40,9 @@ def register_user(request):
         email = request.POST.get('email')
         if _check_if_username_is_free(username):
             User.objects.create_user(username=username, email=email, password=password)
+            wif, address = create_new_wallet()
+            wallet_info = UsersWalletInfo(owner=username, wallet_wif=wif, wallet_address=address)
+            wallet_info.save()
             return render(request, 'login.html')
         else:
             return HttpResponse('Username is not free. Choose another\n', status=405)
@@ -82,7 +85,11 @@ def login_user(request):
 def home_view(request):
     if request.user.is_authenticated:
         random_gatherings = list(Gathering.objects.filter(owner=request.user))
-        return render(request, 'home.html', {'random_gatherings': random_gatherings})
+        wallet = list(UsersWalletInfo.objects.filter(owner=request.user))[0]
+        balance = get_btc_wallet_balance(wallet_wif=wallet.wallet_wif)
+        return render(request, 'home.html', {'random_gatherings': random_gatherings,
+                                             'addrr': wallet.wallet_address,
+                                             'balance': balance})
     else:
         return render(request, 'login.html')
 
@@ -126,7 +133,7 @@ def create_gathering(request):
 
 @csrf_exempt
 def query_gatherings(request):
-    key = request.POST.get('key', None)
+    key = request.POST.get('search_key', None)
     all_entries = list(Gathering.objects.all())
     if key is None:
         best_matches = random.sample(all_entries, min(20, len(all_entries)))
