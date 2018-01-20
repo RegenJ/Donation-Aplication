@@ -1,6 +1,6 @@
 from itertools import product
 import editdistance
-from bit import Key
+from bit import PrivateKeyTestnet
 
 
 def split_sentence_to_words(sentence):
@@ -24,19 +24,24 @@ def find_best_matches(num_of_matches, target, data_set):
     return [entry[1] for entry in sorted(value_map, key=lambda x: x[0])[:min(num_of_matches, len(value_map))]]
 
 
-def pay_with_btc(sender_key, receiver_key, amount_btc, fee=None):
+def create_new_wallet():
+    new_key = PrivateKeyTestnet()
+    return new_key.to_wif(), new_key.address
+
+
+def pay_with_btc(sender_wif, receiver_address, amount_btc, fee=None):
     """
-    :param sender_key: sender wallet id
-    :param receiver_key: receiver wallet id
+    :param sender_wif: sender wallet id
+    :param receiver_address: receiver wallet id
     :param amount_btc:
     :param fee: fee to use during transaction (transaction priority depends on it)
     :return: hash which can be used to follow transaction status on blockchain.info
     """
-    s_key = Key(sender_key)
-    payment = (receiver_key, amount_btc, 'btc')
+    s_key = PrivateKeyTestnet(sender_wif)
+    payment = (receiver_address, amount_btc, 'btc')
     return s_key.send([payment, ], fee=fee)
 
 
-def get_btc_wallet_balance(wallet_key):
-    key = Key(wallet_key)
-    return key.get_balance('btc'), key.get_balance('usd')
+def get_btc_wallet_balance(wallet_wif):
+    key = PrivateKeyTestnet(wallet_wif)
+    return key.get_balance('btc')

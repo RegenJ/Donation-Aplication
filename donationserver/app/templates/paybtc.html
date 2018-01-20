@@ -72,11 +72,6 @@
 <br>
 <div class="text-center" style="margin-left: 150px; margin-right: 150px">
     <div class="form-group">
-        <label for="comment">Your wallet id:</label>
-        <textarea name="sender" class="form-control" rows="1" id="sender"></textarea>
-    </div>
-
-    <div class="form-group">
         <label for="comment">Amount BTC:</label>
         <textarea name="amount" class="form-control" rows="1" id="amount"></textarea>
     </div>
@@ -84,6 +79,11 @@
     <div class="form-group">
         <label for="comment">Transaction fee (BTC):</label>
         <textarea name="fee" class="form-control" rows="1" id="fee"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Receiver address</label>
+        <textarea name="receiver" class="form-control" rows="1" id="receiver"></textarea>
     </div>
 
     <input name="hidden_id" type="hidden" value="{{ id }}" id="hidden_id">
