@@ -7,7 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="../static/app/w3.js"></script>
     <link href="../static/app/home.css" type="text/css" rel="stylesheet">
     <script src="../static/app/home.js"></script>
     <meta charset="UTF-8">
@@ -65,7 +65,7 @@
 <br>
 <br>
 <div class="main-container">
-    <div class="col-sm-12  col-md-12 welcome box ">
+    <div class="col-sm-12  col-md-11 welcome box ">
         <h3>Welcome to Helping Hand</h3>
 
         <p> Our service is free to use Bitcoin donation platform.</p>
@@ -76,7 +76,7 @@
         </p>
     </div>
 
-    <article class="col-sm-12 col-md-6  box ">
+    <article class="col-sm-12 col-md-5 box ">
         <h4> What would you like to do: </h4>
         <hr>
         <a href="https://donationserver.herokuapp.com/gathering/"> Create new gathering</a>
@@ -120,7 +120,21 @@
             <th>Progress</th>
             </thead>
             <tbody id="tableBody">
+            <!--{% for gather in search_gatherings %}-->
+            <!--<tr class="item">-->
+            <!--<td>{{ gather.end_date }}</td>-->
+            <!--<td>{{ gather.title }}</td>-->
+            <!--<td>{{ gather.money_actual }} PLN</td>-->
+            <!--<td>-->
+            <!--<div class="progress progress-striped">-->
+            <!--<div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"-->
+            <!--aria-valuemin="0"-->
+            <!--aria-valuemax="100">{{ gather.percentage }}%</div>-->
+            <!--</div>-->
+            <!--</td>-->
 
+            <!--</tr>-->
+            <!--{% endfor %}-->
             </tbody>
         </table>
 
@@ -130,10 +144,10 @@
     <article class="col-sm-12 col-md-11 box">
         <h4> Useful infos: </h4>
         <ul class="useful-info">
-            <li>About cryptocurrencies<a href="https://blockgeeks.com/guides/what-is-cryptocurrency/"> blockgeeks cryptocurrency guide</a></li>
-            <li>Bitcoin <a href="https://bitcoin.org/"> Official bitcoin page</a></li>
-            <li>Our rules <a href="#"> </a></li>
-            <li>Security <a href="http://bitcoinsecurity101.com/getting-started/"> Security in bitcoin payments </a></li>
+            <li>About cryptocurrencies<a href="https://blockgeeks.com/guides/what-is-cryptocurrency/"> blockgeeks cryptocurrency guide</a> <a href="https://www.weusecoins.com/"> quick start</a> <a href="https://coinranking.com/"> coin ranking</a> <a href="https://www.investopedia.com/articles/forex/091013/future-cryptocurrency.asp"> cryptocurrency future</a></li>
+            <li>Bitcoin <a href="https://bitcoin.org/"> official bitcoin page</a> <a href="https://www.cryptocompare.com/coins/btc/overview/EUR"> value charts</a></li>
+            <li>Transactions <a href="https://blockchain.info/pl"> blockchain </a></li>
+            <li>Security <a href="http://bitcoinsecurity101.com/getting-started/"> security in bitcoin payments </a> <a href="https://www.coindesk.com/tips-keep-bitcoins-secure/"> secure your wallet </a></li>
 
         </ul>
     </article>
@@ -143,14 +157,23 @@
 
     <div class="row">
         <div class="col-md-4 footer-col">
-            <h3> Helping Hand</h3>
                 <img src="../static/app/helpinghands_logo2.png" alt="logo"/>
+                <p class="company">Ⓒ helpinghandcompany </p>
         </div>
         <div class="col-md-4 footer-col">
             <p>More about us</p>
+            <ul>
+                <li> <a href="www.facebook.com"> Facebook </a> </li>
+                <li> <a href="https://github.com/RegenJ/Donation-Aplication"> Github </a> </li>
+
+            </ul>
         </div>
         <div class="col-md-4 footer-col">
             <p>Contact</p>
+            <ul>
+                <li> <a href="#"> helpinghand@hh.com </a>  </li>
+
+            </ul>
         </div>
 
 

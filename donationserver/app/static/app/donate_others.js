@@ -17,6 +17,8 @@ $(document).ready(function filltable () {
 
 });
 
+
+
 //switch active search bar element
 $(document).ready(function () {
     $(".search_bar .row a").on("click", function () {
@@ -25,6 +27,7 @@ $(document).ready(function () {
 
     });
 });
+
 
 // form and send request
 
