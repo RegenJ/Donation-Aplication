@@ -4,8 +4,8 @@ $(document).ready(function () {
         animate: true,
         value: 1,
         min: 0,
-        max: 10000,
-        step: 10,
+        max: 10,
+        step: 0.005,
         slide: function (event, ui) {
             update(1, ui.value); //changed
         }

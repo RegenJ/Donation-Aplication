@@ -7,10 +7,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <link href="/app/static/app/gathering.css" type="text/css" rel="stylesheet">
     <link href="/app/static/app/home.css" type="text/css" rel="stylesheet">
-    <script src="/app/static/app/gathering.js"></script>
     <script src="/app/static/app/home.js"></script>
+    <script src="/app/static/app/paybtc.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -31,7 +30,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png" alt="Logo">  </a>
+                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png"
+                                                          alt="Logo"> </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -68,73 +68,30 @@
 </div>
 <br>
 <br>
-<div class="wrapper"> <!-- for reasons -->
-    <div class="main-content">
-        <div class="container">
-            <div class="price-box">
-                <h3><span class="label label-info">How much money to gather ?</span></h3>
-                <form class="form-horizontal form-pricing" role="form">
-                    {% csrf_token %}
-                    <div class="price-slider">
-                        <h4 class="great">Amount</h4>
-
-                        <div class="col-sm-12">
-                            <div id="slider"></div>
-                        </div>
-                    </div>
-                    <div class="price-form">
-                        <div class="form-group">
-                            <label for="amount" class="col-sm-6 control-label">Amount (BTC): </label>
-                            <span class="help-text">Please choose your amount</span>
-
-                            <div class="col-sm-6">
-                                <input name="money" type="hidden" id="amount" class="form-control">
-
-                                <p class="price lead" id="amount-label"></p>
-                                <span class="price">.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-        <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-
+<br>
+<br>
+<div class="text-center" style="margin-left: 150px; margin-right: 150px">
+    <div class="form-group">
+        <label for="comment">Amount BTC:</label>
+        <textarea name="amount" class="form-control" rows="1" id="amount"></textarea>
     </div>
-    <div class="aside">
-        <h2><span class="label label-info">Choose end date of your gathering</span></h2>
-        <script src="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/js/gijgo.min.js"
-                type="text/javascript"></script>
-        <link href="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/css/gijgo.min.css" rel="stylesheet"
-              type="text/css"/>
 
-        <div class="container">
-            <br/>
-            <input name="date" id="datepicker" width="270"/>
-        </div>
-        <h2><span class="label label-info">Insert gathering title</span></h2>
-        <div class="form-group">
-            <label for="title">Title:</label>
-            <textarea name="title" class="form-control" rows="3" id="title"></textarea>
-        </div>
-        <h2><span class="label label-info">Insert gathering description</span></h2>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea name="desc" class="form-control" rows="10" id="description"></textarea>
-        </div>
-        <h2><span class="label label-info">Inset gathering BTC wallet ID</span></h2>
-        <div class="form-group">
-            <label for="comment">Wallet id:</label>
-            <textarea name="wallet" class="form-control" rows="1" id="wallet"></textarea>
-        </div>
-
-        <h2>
-            <button type="submit" class="btn btn-success btn-lg" onclick="combineAndSendForms()">Create gathering
-            </button>
-        </h2>
+    <div class="form-group">
+        <label for="comment">Transaction fee (BTC):</label>
+        <textarea name="fee" class="form-control" rows="1" id="fee"></textarea>
     </div>
+
+    <div class="form-group">
+        <label for="comment">Receiver address</label>
+        <textarea name="receiver" class="form-control" rows="1" id="receiver"></textarea>
+    </div>
+
+    <input name="hidden_id" type="hidden" value="{{ id }}" id="hidden_id">
+
+    <h2>
+        <button type="submit" class="btn btn-success btn-lg" onclick="combineAndSendForms()">Send BTC
+        </button>
+    </h2>
 </div>
 </body>
 </html>

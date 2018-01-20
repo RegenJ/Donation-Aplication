@@ -2,9 +2,8 @@ body{
     background: #fff;
 }
 .navbar, .dropdown-menu{
-background:#09ba32;
-border: none;
-
+    background:#09ba32;
+    border: none;
 }
 
 .nav>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a, .dropdown-menu>li{
@@ -52,8 +51,8 @@ border: none;
     background: #000000;
 }
 
-body {
-   background-color: lightgreen;
+body{
+    background-color: lightgreen;
 }
 
 

@@ -8,6 +8,8 @@ django = "*"
 gunicorn = "*"
 "psycopg2" = "*"
 whitenoise = "*"
+bit = "*"
+editdistance = "*"
 
 [requires]
 python_full_version = "3.6.2"

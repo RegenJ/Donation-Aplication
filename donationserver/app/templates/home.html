@@ -26,7 +26,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Helping Hand</a>
+                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png" alt="Logo">  </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -43,7 +43,7 @@
                             </ul>
                         </li>
                         <li><a href="#">My foundation</a></li>
-                        <li><a href="#">Donate others</a></li>
+                        <li><a href="https://donationserver.herokuapp.com/donateothers/">Donate others</a></li>
                     </ul>
                     <ul class="nav navbar-nav pull-right">
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown"
@@ -74,6 +74,9 @@
             Helping hand is based on payments by cryptocurrency Bitcoin, which give a chance to finance your
             ideas with money independent of inflation and governments. To find out more check our subpages.
         </p>
+      <label>Your wallet address: {{ addrr }}</label>
+      <br>
+      <label>Your wallet balance: {{ balance }}</label>
     </div>
 
     <article class="col-sm-12 col-md-5 box ">
@@ -111,7 +114,7 @@
 
 
     <aside class="col-sm-12 col-md-5 search_bar box">
-        <table id="search_gatherings" class="table">
+        <table id="random_gatherings" class="table">
             <h4>Subscribed gatherings </h4>
             <thead class="thead-inverse">
             <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(1)')">End date <i class="glyphicon glyphicon-sort"></i> </th>
@@ -120,21 +123,20 @@
             <th>Progress</th>
             </thead>
             <tbody id="tableBody">
-            <!--{% for gather in search_gatherings %}-->
-            <!--<tr class="item">-->
-            <!--<td>{{ gather.end_date }}</td>-->
-            <!--<td>{{ gather.title }}</td>-->
-            <!--<td>{{ gather.money_actual }} PLN</td>-->
-            <!--<td>-->
-            <!--<div class="progress progress-striped">-->
-            <!--<div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"-->
-            <!--aria-valuemin="0"-->
-            <!--aria-valuemax="100">{{ gather.percentage }}%</div>-->
-            <!--</div>-->
-            <!--</td>-->
-
-            <!--</tr>-->
-            <!--{% endfor %}-->
+            {% for gather in random_gatherings %}
+                  <tr>
+                     <td>{{ gather.end_date }}</td>
+                     <td>{{ gather.title }}</td>
+                     <td>{{ gather.money_actual }} PLN</td>
+                     <td>
+                          <div class="progress progress-striped">
+                              <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"
+                                   aria-valuemin="0"
+                                   aria-valuemax="100">{{ gather.percentage }}%</div>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
             </tbody>
         </table>
 
@@ -180,5 +182,6 @@
     </div>
 
 </footer>
+
 </body>
 </html>
