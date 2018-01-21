@@ -67,13 +67,7 @@
 <br>
 <br>
 <br>
-{% if message is not None %}
-    <div class="col-sm-6  col-md-8 welcome box ">
-        <h4>Transaction finalized successfully. You can track it here
-            <a href={{ message }}>Track</a>
-        </h4>
-    </div>
-{% endif %}
+
 
 <div class="main-container">
     <div class="col-sm-12  col-md-11 welcome box ">
@@ -84,12 +78,27 @@
             Helping hand is based on payments with cryptocurrency Bitcoin, which gives a chance to empower your
             ideas with money independent of inflation and governments. To find out more check our subpages.
         </p>
-        <br>
-        <h4>Your wallet address: {{ addrr }}</h4>
-        <h4>Your wallet balance: {{ balance }} BTC</h4>
+
     </div>
 
-    <article class="col-sm-12 col-md-5 box ">
+
+
+    <div class="col-sm-12  col-md-11  payments box ">
+        <h4> Payments details & infos</h4>
+        <p>Your wallet address: {{ addrr }}</p>
+        <p>Your wallet balance: {{ balance }} BTC</p>
+        <br>
+        {% if message is not None %}
+        <div>
+            <p>Transaction finalized successfully. You can track it here
+                <a href={{ message }}>Track</a>
+            </p>
+        </div>
+        {% endif %}
+    </div>
+
+
+    <article class="col-sm-12 col-md-3 box ">
         <h4> What would you like to do: </h4>
         <hr>
         <a href="https://donationserver.herokuapp.com/gathering/"> Create new gathering</a>
@@ -123,7 +132,7 @@
     </article>
 
 
-    <aside class="col-sm-12 col-md-5 search_bar box">
+    <aside class="col-sm-12 col-md-7 search_bar box">
         <table id="random_gatherings" class="table">
             <h4>Gatherings you have donated</h4>
             <thead class="thead-inverse">

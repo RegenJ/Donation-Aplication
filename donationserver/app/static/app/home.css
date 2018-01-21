@@ -116,6 +116,12 @@ body{
 
     }
 
+    .main-container .payments p {
+        font-weight: 500;
+        font-size: 1.1em;
+
+    }
+
     .main-container .search_bar {
         margin-left: 45px;
 
