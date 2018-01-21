@@ -30,12 +30,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png"
+                    <a class="navbar-brand" href="https://donationserver.herokuapp.com/home/"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png"
                                                           alt="Logo"> </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#" class="">Home</a></li>
+                        <li class="active"><a href="https://donationserver.herokuapp.com/home/" class="">Home</a></li>
                         <li class=" dropdown">
                             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">Gatherings<span class="caret"></span></a>
@@ -70,20 +70,15 @@
 <br>
 <br>
 <br>
-<div class="text-center" style="margin-left: 150px; margin-right: 150px">
+<div class="text-center" style="margin-left: 230px; margin-right: 230px">
     <div class="form-group">
         <label for="comment">Amount BTC:</label>
         <textarea name="amount" class="form-control" rows="1" id="amount"></textarea>
     </div>
 
     <div class="form-group">
-        <label for="comment">Transaction fee (BTC):</label>
-        <textarea name="fee" class="form-control" rows="1" id="fee"></textarea>
-    </div>
-
-    <div class="form-group">
         <label for="comment">Receiver address</label>
-        <textarea name="receiver" class="form-control" rows="1" id="receiver"></textarea>
+        <label for="comment">{{ receiver_address }}<label>
     </div>
 
     <input name="hidden_id" type="hidden" value="{{ id }}" id="hidden_id">

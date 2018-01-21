@@ -29,7 +29,7 @@ def create_new_wallet():
     return new_key.to_wif(), new_key.address
 
 
-def pay_with_btc(sender_wif, receiver_address, amount_btc, fee=None):
+def pay_with_btc(sender_wif, receiver_address, amount_btc):
     """
     :param sender_wif: sender wallet id
     :param receiver_address: receiver wallet id
@@ -39,7 +39,7 @@ def pay_with_btc(sender_wif, receiver_address, amount_btc, fee=None):
     """
     s_key = PrivateKeyTestnet(sender_wif)
     payment = (receiver_address, amount_btc, 'btc')
-    return s_key.send([payment, ], fee=fee)
+    return s_key.send([payment], unspents=s_key.get_unspents())
 
 
 def get_btc_wallet_balance(wallet_wif):

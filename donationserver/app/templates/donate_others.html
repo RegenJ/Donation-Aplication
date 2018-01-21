@@ -8,12 +8,12 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <script src="../static/app/w3.js"></script>
+    <script src="/app/static/app/w3.js"></script>
     <link href="/app/static/app/donate_others.css" type="text/css" rel="stylesheet">
     <link href="/app/static/app/home.css" type="text/css" rel="stylesheet">
     <script src="/app/static/app/donate_others.js"></script>
     <script src="/app/static/app/home.js"></script>
-    <script src="../static/app/w3.js"></script>
+    <script src="/app/static/app/w3.js"></script>
 
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -35,11 +35,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png" alt="Logo">  </a>
+                    <a class="navbar-brand" href="https://donationserver.herokuapp.com/home/"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png" alt="Logo">  </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li ><a href="#" class="">Home</a></li>
+                        <li ><a href="https://donationserver.herokuapp.com/home/" class="">Home</a></li>
                         <li class=" dropdown">
                             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">Gatherings<span class="caret"></span></a>
@@ -104,6 +104,7 @@
     <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(4)')">Title <i class="glyphicon glyphicon-sort"></i> </th>
     <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(5)')">Target <i class="glyphicon glyphicon-sort"></i> </th>
     <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(6)')">Actual <i class="glyphicon glyphicon-sort"></i> </th>
+    <th>Wallet Address</th>
     <th>Progress</th>
     <th>Donation</th>
     </thead><tbody>
@@ -115,6 +116,7 @@
             <td>{{ gather.title }}</td>
             <td>{{ gather.money_target }} BTC</td>
             <td>{{ gather.money_actual }} BTC</td>
+            <td>{{ gather.wallet }}</td>
             <td>
                 <div class="progress progress-striped">
                     <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"
@@ -132,7 +134,7 @@
 
     <div class="row">
         <div class="col-md-4 footer-col">
-            <img src="../static/app/helpinghands_logo2.png" alt="logo"/>
+            <img src="/app/static/app/helpinghands_logo2.png" alt="logo"/>
             <p class="company">Ⓒ helpinghandcompany </p>
         </div>
         <div class="col-md-4 footer-col">

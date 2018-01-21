@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadReq
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from app.utils import *
-from app.models import Gathering, UsersWalletInfo
+from app.models import Gathering, UsersWalletInfo, Donation
 
 
 @csrf_exempt
@@ -84,10 +84,18 @@ def login_user(request):
 @csrf_exempt
 def home_view(request):
     if request.user.is_authenticated:
-        random_gatherings = list(Gathering.objects.filter(owner=request.user))
+        try:
+            for e in list(Donation.objects.filter(donor=request.user)):
+                logging.error(e)
+            donated_gatherings = [Gathering.objects.get(pk=entry.gathering_id) for entry in
+                                  list(Donation.objects.filter(donor=request.user))]
+            donated_gatherings = list(set(donated_gatherings))
+        except ObjectDoesNotExist:
+            logging.error('WYSYPALO SIE !!')
+            donated_gatherings = []
         wallet = list(UsersWalletInfo.objects.filter(owner=request.user))[0]
         balance = get_btc_wallet_balance(wallet_wif=wallet.wallet_wif)
-        return render(request, 'home.html', {'random_gatherings': random_gatherings,
+        return render(request, 'home.html', {'donated_gatherings': donated_gatherings,
                                              'addrr': wallet.wallet_address,
                                              'balance': balance})
     else:
@@ -117,11 +125,11 @@ def create_gathering(request):
         target = request.POST.get('money')
         end_date = request.POST.get('date')
         title = request.POST.get('title')
-        wallet_id = request.POST.get('wallet')
+        wallet_address = list(UsersWalletInfo.objects.filter(owner=request.user))[0].wallet_address
         gathering = Gathering(owner=request.user,
                               purpose=purpose,
                               end_date=end_date,
-                              wallet=wallet_id,
+                              wallet=wallet_address,
                               start_date=datetime.utcnow().strftime("%m. %d, %Y"),
                               money_target=float(target),
                               money_actual=0.0,
@@ -145,18 +153,27 @@ def query_gatherings(request):
 @csrf_exempt
 def paybtc(request):
     gathering_id = request.POST.get('gathering_id')
-    return render(request, 'paybtc.html', {'id': gathering_id})
+    receiver_address = Gathering.objects.get(pk=gathering_id).wallet
+    return render(request, 'paybtc.html', {'id': gathering_id, 'receiver_address': receiver_address})
 
 
 @csrf_exempt
 def finalize_payment(request):
     gathering_id = int(request.POST.get('hidden_id'))
     amount = float(request.POST.get('amount'))
-    fee = request.POST.get('fee')
-    sender = request.POST.get('sender')
-    gathering = list(Gathering.objects.filter(pk=gathering_id))[0]
-    transaction_id = pay_with_btc(sender, gathering.wallet, amount, fee=fee)
+    gathering = Gathering.objects.get(pk=gathering_id)
+    sender = list(UsersWalletInfo.objects.filter(owner=request.user))[0].wallet_wif
+    transaction_id = pay_with_btc(sender, gathering.wallet, amount)
     gathering.money_actual += amount
+    gathering.percentage = int((gathering.money_actual / gathering.money_target) * 100)
     gathering.save()
+    donation = Donation(donor=request.user,
+                        receiver=gathering.owner,
+                        value=amount,
+                        date=datetime.utcnow().strftime("%m. %d, %Y"),
+                        transaction_id=transaction_id,
+                        gathering_id=gathering_id)
+    donation.save()
     return HttpResponse(
-        'Payment finalized. You can track your payment here:\n https://blockchain.info/tx/{}'.format(transaction_id))
+        'Payment finalized. You can track your payment here:\n https://testnet.blockchain.info/tx/{}'.format(
+            transaction_id))

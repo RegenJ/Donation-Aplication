@@ -8,9 +8,9 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <script src="../static/app/w3.js"></script>
-    <link href="../static/app/home.css" type="text/css" rel="stylesheet">
-    <script src="../static/app/home.js"></script>
+    <script src="/app/static/app/w3.js"></script>
+    <link href="/app/static/app/home.css" type="text/css" rel="stylesheet">
+    <script src="/app/static/app/home.js"></script>
     <meta charset="UTF-8">
     <title>Helping Hand</title>
 </head>
@@ -27,11 +27,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png" alt="Logo">  </a>
+                    <a class="navbar-brand" href="https://donationserver.herokuapp.com/home/"><img class="logo" src="/app/static/app/helpinghandlogoSmall4.png" alt="Logo">  </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#" class="">Home</a></li>
+                        <li class="active"><a href="https://donationserver.herokuapp.com/home/" class="">Home</a></li>
                         <li class=" dropdown">
                             <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">Gatherings<span class="caret"></span></a>
@@ -70,14 +70,13 @@
         <h3>Welcome to Helping Hand</h3>
 
         <p> Our service is free to use Bitcoin donation platform.</p>
-        <p> If you're looking for unique source of crowdfunding for your project or foundation
-            we a just for you!
-            Helping hand is based on payments by cryptocurrency Bitcoin, which give a chance to finance your
+        <p> If you're looking for unique source of crowdfunding for your project we are just for you!
+            Helping hand is based on payments with cryptocurrency Bitcoin, which gives a chance to empower your
             ideas with money independent of inflation and governments. To find out more check our subpages.
         </p>
-      <label>Your wallet address: {{ addrr }}</label>
+      <h4>Your wallet address:  {{ addrr }}</h4>
       <br>
-      <label>Your wallet balance: {{ balance }}</label>
+      <h4>Your wallet balance:  {{ balance }} BTC</h4>
     </div>
 
     <article class="col-sm-12 col-md-5 box ">
@@ -116,19 +115,21 @@
 
     <aside class="col-sm-12 col-md-5 search_bar box">
         <table id="random_gatherings" class="table">
-            <h4>Subscribed gatherings </h4>
+            <h4>Gatherings you have donated</h4>
             <thead class="thead-inverse">
             <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(1)')">End date <i class="glyphicon glyphicon-sort"></i> </th>
             <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(2)')">Title <i class="glyphicon glyphicon-sort"></i> </th>
-            <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(3)')">Actual <i class="glyphicon glyphicon-sort"></i> </th>
+            <th onclick="w3.sortHTML('#search_gatherings','.item', 'td:nth-child(3)')">Actual Money<i class="glyphicon glyphicon-sort"></i> </th>
+            <th>Wallet Address</th>
             <th>Progress</th>
             </thead>
             <tbody id="tableBody">
-            {% for gather in random_gatherings %}
+            {% for gather in donated_gatherings %}
                   <tr>
                      <td>{{ gather.end_date }}</td>
                      <td>{{ gather.title }}</td>
-                     <td>{{ gather.money_actual }} PLN</td>
+                     <td>{{ gather.money_actual }} BTC</td>
+                     <td>{{ gather.wallet }}</td>
                      <td>
                           <div class="progress progress-striped">
                               <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gather.percentage }}%"
@@ -160,7 +161,7 @@
 
     <div class="row">
         <div class="col-md-4 footer-col">
-                <img src="../static/app/helpinghands_logo2.png" alt="logo"/>
+                <img src="/app/static/app/helpinghands_logo2.png" alt="logo"/>
                 <p class="company">Ⓒ helpinghandcompany </p>
         </div>
         <div class="col-md-4 footer-col">

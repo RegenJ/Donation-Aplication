@@ -32,4 +32,6 @@ class Donation(models.Model):
     donor = models.CharField(max_length=40)
     receiver = models.CharField(max_length=40)
     value = models.FloatField(default=None, blank=True, null=True)
-    date = models.DateField(default=None, blank=True, null=True)
+    date = models.CharField(max_length=50)
+    transaction_id = models.CharField(max_length=100)
+    gathering_id = models.IntegerField()
