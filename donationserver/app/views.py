@@ -82,7 +82,7 @@ def login_user(request):
 
 
 @csrf_exempt
-def home_view(request):
+def home_view(request, msg=None):
     if request.user.is_authenticated:
         try:
             for e in list(Donation.objects.filter(donor=request.user)):
@@ -97,7 +97,8 @@ def home_view(request):
         balance = get_btc_wallet_balance(wallet_wif=wallet.wallet_wif)
         return render(request, 'home.html', {'donated_gatherings': donated_gatherings,
                                              'addrr': wallet.wallet_address,
-                                             'balance': balance})
+                                             'balance': balance,
+                                             'message': msg})
     else:
         return render(request, 'login.html')
 
@@ -174,6 +175,4 @@ def finalize_payment(request):
                         transaction_id=transaction_id,
                         gathering_id=gathering_id)
     donation.save()
-    return HttpResponse(
-        'Payment finalized. You can track your payment here:\n https://testnet.blockchain.info/tx/{}'.format(
-            transaction_id))
+    return home_view(request, 'https://testnet.blockchain.info/tx/{}'.format(transaction_id))
